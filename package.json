@@ -1,0 +1,29 @@
+{
+  "name": "fix-phone",
+  "version": "0.0.1",
+  "description": "Validate and format phone number, or return nothing, if such phone is not valid",
+  "main": "index.js",
+  "directories": {
+    "test": "tests"
+  },
+  "dependencies": {
+    "lodash": "^3.10.1"
+  },
+  "devDependencies": {
+    "mocha": "^2.3.4",
+    "should": "^8.0.2"
+  },
+  "scripts": {
+    "test": "mocha tests"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/titarenko/fix-phone.git"
+  },
+  "author": "Constantin Titarenko",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/titarenko/fix-phone/issues"
+  },
+  "homepage": "https://github.com/titarenko/fix-phone#readme"
+}

@@ -50,8 +50,8 @@ var fixRuPhone = fixPhoneBuilder(9, 13, true, '+7', /\+7(\d{3})/,
 
 function fixPhoneBuilder (minLength, maxLength, replace8, prefix, codeRegexp, validCodes) {
 	return function (phone) {
+
 		phone = phone.replace(/[^\d\+]/g, '');
-	
 		if (phone.length <= minLength || phone.length >= maxLength) {
 			return null;
 		}
@@ -61,7 +61,7 @@ function fixPhoneBuilder (minLength, maxLength, replace8, prefix, codeRegexp, va
 		}
 
 		var offset = maxLength - 1 - phone.length;
-		phone = prefix.slice(offset) + phone;
+		phone = prefix.slice(0, offset) + phone;
 
 		var operatorCode = phone.match(codeRegexp);
 		operatorCode = +(operatorCode && operatorCode[1]);
@@ -71,6 +71,7 @@ function fixPhoneBuilder (minLength, maxLength, replace8, prefix, codeRegexp, va
 
 		if (!_.contains(validCodes, operatorCode)) {
 			return null;
+
 		}
 
 		return phone;
