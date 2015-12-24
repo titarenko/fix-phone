@@ -3,7 +3,7 @@ var _ = require('lodash');
 module.exports = fixPhone;
 
 function fixPhone (cc, phone) {
-	switch (cc) {
+	switch (cc.toLowerCase()) {
 		case 'ru': return fixRuPhone(phone);
 		case 'ua': return fixUaPhone(phone);
 		case 'kz': return fixKzPhone(phone);
