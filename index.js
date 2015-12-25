@@ -25,10 +25,9 @@ var fixUaPhone = fixPhoneBuilder(8, 14, false, '+380', /^\+38(\d{3})/,
 
 var fixKzPhone = fixPhoneBuilder(9, 13, true, '+7', /^\+7(\d{3})/, 
 	[700, 701, 702, 705, 707, 708, 747, 771, 775, 776, 777, 778, 336].concat(
-		_.range(710, 714 + 1),
+		_.range(710, 718 + 1),
 		_.range(716, 718 + 1),
-		_.range(721, 724 + 1),
-		_.range(726, 729 + 1)
+		_.range(721, 729 + 1)
 	)
 );
 
