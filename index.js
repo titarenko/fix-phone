@@ -2,8 +2,16 @@ var _ = require('lodash');
 
 module.exports = fixPhone;
 
-function fixPhone (cc, phone) {
-	switch (cc.toLowerCase()) {
+function fixPhone (cc, phone, omitValidation) {
+	if (omitValidation) {
+		switch (cc) {
+			case 'ru': return fixRuPhoneNoValidation(phone);
+			case 'ua': return fixUaPhoneNoValidation(phone);
+			case 'kz': return fixKzPhoneNoValidation(phone);
+			default: return null;
+		}
+	}
+	switch (cc) {
 		case 'ru': return fixRuPhone(phone);
 		case 'ua': return fixUaPhone(phone);
 		case 'kz': return fixKzPhone(phone);
@@ -21,7 +29,9 @@ var fixUaPhone = fixPhoneBuilder(8, 14, false, '+380', /^\+38(\d{3})/,
 		_.range(61, 62 + 1),
 		64, 65, 69
  	)
- );
+);
+
+var fixUaPhoneNoValidation = fixPhoneBuilder(8, 14, false, '+380');
 
 var fixKzPhone = fixPhoneBuilder(9, 13, true, '+7', /^\+7(\d{3})/, 
 	[700, 701, 702, 705, 707, 708, 747, 771, 775, 776, 777, 778, 336].concat(
@@ -30,6 +40,8 @@ var fixKzPhone = fixPhoneBuilder(9, 13, true, '+7', /^\+7(\d{3})/,
 		_.range(721, 729 + 1)
 	)
 );
+
+var fixKzPhoneNoValidation = fixPhoneBuilder(9, 13, true, '+7');
 
 var fixRuPhone = fixPhoneBuilder(9, 13, true, '+7', /^\+7(\d{3})/,
 	[].concat(
@@ -40,9 +52,10 @@ var fixRuPhone = fixPhoneBuilder(9, 13, true, '+7', /^\+7(\d{3})/,
 	)
 );
 
+var fixRuPhoneNoValidation = fixPhoneBuilder(9, 13, true, '+7');
+
 function fixPhoneBuilder (minLength, maxLength, replace8, prefix, codeRegexp, validCodes) {
 	return function (phone) {
-
 		phone = phone.replace(/[^\d\+]/g, '');
 		if (phone.length <= minLength || phone.length >= maxLength) {
 			return null;
@@ -55,15 +68,16 @@ function fixPhoneBuilder (minLength, maxLength, replace8, prefix, codeRegexp, va
 		var offset = maxLength - 1 - phone.length;
 		phone = prefix.slice(0, offset) + phone;
 
-		var operatorCode = phone.match(codeRegexp);
-		operatorCode = +(operatorCode && operatorCode[1]);
-		if (isNaN(operatorCode)) {
-			return null;
-		}
+		if (_.isRegExp(codeRegexp) && !_.isEmpty(validCodes)) {
+			var operatorCode = phone.match(codeRegexp);
+			operatorCode = +(operatorCode && operatorCode[1]);
+			if (isNaN(operatorCode)) {
+				return null;
+			}
 
-		if (!_.contains(validCodes, operatorCode)) {
-			return null;
-
+			if (!_.contains(validCodes, operatorCode)) {
+				return null;
+			}
 		}
 
 		return phone;
