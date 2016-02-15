@@ -68,6 +68,10 @@ function fixPhoneBuilder (minLength, maxLength, replace8, prefix, codeRegexp, va
 		var offset = maxLength - 1 - phone.length;
 		phone = prefix.slice(0, offset) + phone;
 
+		if (phone.slice(0, prefix.length) != prefix) {
+			return null;
+		}
+
 		if (_.isRegExp(codeRegexp) && !_.isEmpty(validCodes)) {
 			var operatorCode = phone.match(codeRegexp);
 			operatorCode = +(operatorCode && operatorCode[1]);
