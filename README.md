@@ -1,6 +1,7 @@
 # fix-phone
 
-[![Build Status](https://secure.travis-ci.org/titarenko/fix-phone.png?branch=master)](https://travis-ci.org/titarenko/fix-phone) [![Coverage Status](https://coveralls.io/repos/titarenko/fix-phone/badge.png)](https://coveralls.io/r/titarenko/fix-phone)
+[![Build Status](https://secure.travis-ci.org/titarenko/fix-phone.png?branch=master)](https://travis-ci.org/titarenko/fix-phone) 
+[![Coverage Status](https://coveralls.io/repos/github/titarenko/fix-phone/badge.svg?branch=master)](https://coveralls.io/github/titarenko/fix-phone?branch=master)
 
 Validate and format phone number, or return nothing, if such phone is not valid.
 
