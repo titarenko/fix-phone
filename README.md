@@ -18,6 +18,9 @@ var fix = require('fix-phone');
 
 fix('ua', '050-121-22-33'); // returns +380501212233
 fix('ua', '010-121-22-33'); // returns null
+
+fix.decompose('ua', '050-121-22-33'); // returns { country: '+380', local: '50', phone: '1212233' }
+fix.decompose('ua', '010-121-22-33'); // returns null
 ```
 
 ## Supported country codes

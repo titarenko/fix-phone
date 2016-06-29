@@ -1,6 +1,33 @@
 var _ = require('lodash');
 
+var countryCodes = {
+	'ua': '+380',
+	'ru': '+7',
+	'kz': '+7',
+	'ro': '+40'
+};
+
+var phoneLengths = {
+	'ua': 7,
+	'ru': 7,
+	'kz': 7,
+	'ro': 6
+};
+
 module.exports = fixPhone;
+module.exports.decompose = decompose;
+
+function decompose (cc, phone) {
+	var fixed = fixPhone(cc, phone);
+	if (!fixed) {
+		return null;
+	}
+	return {
+		country: countryCodes[cc],
+		local: phone.slice(countryCodes[cc].length, -phoneLengths[cc]),
+		phone: phone.slice(-phoneLengths[cc])
+	};
+}
 
 function fixPhone (cc, phone) {
 	switch (cc) {
@@ -12,10 +39,10 @@ function fixPhone (cc, phone) {
 	}
 }
 
-var fixUaPhone = fixPhoneBuilder(9, 13, false, '+380');
-var fixRuPhone = fixPhoneBuilder(10, 12, true, '+7');
-var fixKzPhone = fixPhoneBuilder(10, 12, true, '+7');
-var fixRoPhone = fixPhoneBuilder(9, 12, false, '+40');
+var fixUaPhone = fixPhoneBuilder(9, 13, false, countryCodes['ua']);
+var fixRuPhone = fixPhoneBuilder(10, 12, true, countryCodes['ru']);
+var fixKzPhone = fixPhoneBuilder(10, 12, true, countryCodes['kz']);
+var fixRoPhone = fixPhoneBuilder(9, 12, false, countryCodes['ro']);
 
 function fixPhoneBuilder (minLength, maxLength, replace8, prefix) {
 	return function (phone) {
