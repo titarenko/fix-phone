@@ -1,7 +1,7 @@
 {
   "name": "fix-phone",
-  "version": "0.0.8",
-  "description": "Validate and format phone number, or return nothing, if such phone is not valid",
+  "version": "1.0.0",
+  "description": "Validate and format phone number, or return nothing, if such phone is not valid.",
   "main": "index.js",
   "directories": {
     "test": "tests"
