@@ -10,11 +10,13 @@
     "lodash": "^3.10.1"
   },
   "devDependencies": {
+    "coveralls": "^2.11.9",
+    "istanbul": "^0.4.4",
     "mocha": "^2.3.4",
     "should": "^8.0.2"
   },
   "scripts": {
-    "test": "mocha tests"
+    "test": "istanbul cover node_modules/mocha/bin/_mocha -- tests && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js"
   },
   "repository": {
     "type": "git",
