@@ -7,7 +7,7 @@ describe('fix-phone', function () {
 		it('should decompose ua phones', function () {
 			decompose('ua', '+380507776655').should.eql({
 				country: '+380',
-				local: '50',
+				local: '050',
 				phone: '7776655'
 			});
 		});

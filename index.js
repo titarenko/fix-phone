@@ -7,6 +7,13 @@ var countryCodes = {
 	'ro': '+40'
 };
 
+var localCodeLengths = {
+	'ua': 3,
+	'ru': 3,
+	'kz': 3,
+	'ro': 3
+};
+
 var phoneLengths = {
 	'ua': 7,
 	'ru': 7,
@@ -24,7 +31,7 @@ function decompose (cc, phone) {
 	}
 	return {
 		country: countryCodes[cc],
-		local: phone.slice(countryCodes[cc].length, -phoneLengths[cc]),
+		local: phone.slice(-phoneLengths[cc] - localCodeLengths[cc], -phoneLengths[cc]),
 		phone: phone.slice(-phoneLengths[cc])
 	};
 }
