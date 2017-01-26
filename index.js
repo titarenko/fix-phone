@@ -69,7 +69,7 @@ var fixThPhone = function (phone) {
 		? _.trimStart(trimmedPhone, _.uniq(countryCodes['th']))
 		: trimmedPhone;
 
-	if ([2, 3, 4, 5, 7].includes(Number(localPhone[0]))) {
+	if ([2, 3, 4, 5, 7].indexOf(Number(localPhone[0])) != -1) {
 		return fixThCityPhone(phone)
 	} else {
 		return fixThMobilePhone(phone)
