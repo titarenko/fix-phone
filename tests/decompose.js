@@ -32,5 +32,19 @@ describe('fix-phone', function () {
 				phone: '556677'
 			});
 		});
+		it('should decompose th mobile phones', function () {
+			decompose('th', '+666815555555').should.eql({
+				country: '+66',
+				local: '681',
+				phone: '5555555'
+			});
+		});
+		it('should decompose th city phones', function () {
+			decompose('th', '+66201234567').should.eql({
+				country: '+66',
+				local: '20',
+				phone: '1234567'
+			});
+		});
 	});
 });

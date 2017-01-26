@@ -1,13 +1,13 @@
 {
   "name": "fix-phone",
-  "version": "1.1.1",
+  "version": "1.1.2",
   "description": "Validate and format phone number, or return nothing, if such phone is not valid.",
   "main": "index.js",
   "directories": {
     "test": "tests"
   },
   "dependencies": {
-    "lodash": "^3.10.1"
+    "lodash": "^4.17.4"
   },
   "devDependencies": {
     "coveralls": "^2.11.9",

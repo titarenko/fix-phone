@@ -1,24 +1,35 @@
 var _ = require('lodash');
 
 var countryCodes = {
-	'ua': '+380',
-	'ru': '+7',
-	'kz': '+7',
-	'ro': '+40'
+	ua: '+380',
+	ru: '+7',
+	kz: '+7',
+	ro: '+40',
+	th: '+66'
 };
 
 var localCodeLengths = {
-	'ua': 3,
-	'ru': 3,
-	'kz': 3,
-	'ro': 3
+	ua: 3,
+	ru: 3,
+	kz: 3,
+	ro: 3,
+	th: 3
 };
 
+var countryLocalPrefix = {
+	ua: '0',
+	ru: '',
+	kz: '',
+	ro: '',
+	th: ''
+}
+
 var phoneLengths = {
-	'ua': 7,
-	'ru': 7,
-	'kz': 7,
-	'ro': 6
+	ua: 7,
+	ru: 7,
+	kz: 7,
+	ro: 6,
+	th: 7
 };
 
 module.exports = fixPhone;
@@ -31,7 +42,7 @@ function decompose (cc, phone) {
 	}
 	return {
 		country: countryCodes[cc],
-		local: phone.slice(-phoneLengths[cc] - localCodeLengths[cc], -phoneLengths[cc]),
+		local: countryLocalPrefix[cc] + phone.slice(countryCodes[cc].length, -phoneLengths[cc]),
 		phone: phone.slice(-phoneLengths[cc])
 	};
 }
@@ -42,6 +53,7 @@ function fixPhone (cc, phone) {
 		case 'ua': return fixUaPhone(phone);
 		case 'kz': return fixKzPhone(phone);
 		case 'ro': return fixRoPhone(phone);
+		case 'th': return fixThPhone(phone);
 		default: return null;
 	}
 }
@@ -50,6 +62,22 @@ var fixUaPhone = fixPhoneBuilder(9, 13, false, countryCodes['ua']);
 var fixRuPhone = fixPhoneBuilder(10, 12, true, countryCodes['ru']);
 var fixKzPhone = fixPhoneBuilder(10, 12, true, countryCodes['kz']);
 var fixRoPhone = fixPhoneBuilder(9, 12, false, countryCodes['ro']);
+
+var fixThPhone = function (phone) {
+	var trimmedPhone = _.trim(phone);
+	var localPhone = trimmedPhone.length > 9
+		? _.trimStart(trimmedPhone, _.uniq(countryCodes['th']))
+		: trimmedPhone;
+
+	if ([2, 3, 4, 5, 7].includes(Number(localPhone[0]))) {
+		return fixThCityPhone(phone)
+	} else {
+		return fixThMobilePhone(phone)
+	}
+}
+
+var fixThMobilePhone = fixPhoneBuilder(9, 13, false, countryCodes['th']);
+var fixThCityPhone = fixPhoneBuilder(9, 12, false, countryCodes['th']);
 
 function fixPhoneBuilder (minLength, maxLength, replace8, prefix) {
 	return function (phone) {
