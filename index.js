@@ -29,7 +29,7 @@ var phoneLengths = {
 	ru: 7,
 	kz: 7,
 	ro: 6,
-	th: 7
+	th: 6
 };
 
 module.exports = fixPhone;
@@ -65,7 +65,7 @@ var fixRoPhone = fixPhoneBuilder(9, 12, false, countryCodes['ro']);
 
 var fixThPhone = function (phone) {
 	var trimmedPhone = _.trim(phone);
-	var localPhone = trimmedPhone.length > 9
+	var localPhone = trimmedPhone.length > 8
 		? _.trimStart(trimmedPhone, _.uniq(countryCodes['th']))
 		: trimmedPhone;
 
@@ -76,8 +76,8 @@ var fixThPhone = function (phone) {
 	}
 }
 
-var fixThMobilePhone = fixPhoneBuilder(8, 13, false, countryCodes['th']);
-var fixThCityPhone = fixPhoneBuilder(8, 12, false, countryCodes['th']);
+var fixThMobilePhone = fixPhoneBuilder(8, 12, false, countryCodes['th']);
+var fixThCityPhone = fixPhoneBuilder(8, 11, false, countryCodes['th']);
 
 function fixPhoneBuilder (minLength, maxLength, replace8, prefix) {
 	return function (phone) {
