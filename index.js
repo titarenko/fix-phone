@@ -76,8 +76,8 @@ var fixThPhone = function (phone) {
 	}
 }
 
-var fixThMobilePhone = fixPhoneBuilder(9, 13, false, countryCodes['th']);
-var fixThCityPhone = fixPhoneBuilder(9, 12, false, countryCodes['th']);
+var fixThMobilePhone = fixPhoneBuilder(8, 13, false, countryCodes['th']);
+var fixThCityPhone = fixPhoneBuilder(8, 12, false, countryCodes['th']);
 
 function fixPhoneBuilder (minLength, maxLength, replace8, prefix) {
 	return function (phone) {
