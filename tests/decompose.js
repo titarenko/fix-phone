@@ -33,17 +33,17 @@ describe('fix-phone', function () {
 			});
 		});
 		it('should decompose th mobile phones', function () {
-			decompose('th', '+666815555555').should.eql({
+			decompose('th', '+66966362847').should.eql({
 				country: '+66',
-				local: '681',
-				phone: '5555555'
+				local: '966',
+				phone: '362847'
 			});
 		});
-		it('should decompose th city phones', function () {
-			decompose('th', '+66201234567').should.eql({
+		it('should decompose th mobile phones', function () {
+			decompose('th', '+6620123456').should.eql({
 				country: '+66',
 				local: '20',
-				phone: '1234567'
+				phone: '123456'
 			});
 		});
 	});
