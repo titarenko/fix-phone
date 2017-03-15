@@ -39,7 +39,7 @@ describe('fix-phone', function () {
 				phone: '362847'
 			});
 		});
-		it('should decompose th mobile phones', function () {
+		it('should decompose th city phones', function () {
 			decompose('th', '+6620123456').should.eql({
 				country: '+66',
 				local: '20',
