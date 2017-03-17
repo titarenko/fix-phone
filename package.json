@@ -16,7 +16,8 @@
     "should": "^8.0.2"
   },
   "scripts": {
-    "test": "istanbul cover node_modules/mocha/bin/_mocha -- tests && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js"
+    "test": "istanbul cover node_modules/mocha/bin/_mocha -- tests && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js",
+    "release": "npm test && npm version patch && npm publish && git push && git push --tags"
   },
   "repository": {
     "type": "git",
