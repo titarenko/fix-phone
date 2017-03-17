@@ -235,6 +235,7 @@ function fixPhoneBuilder (minLength, maxLength, cc) {
 		if (config.hasLocalPrefix(phone)) {
 			phone = prefix + phone.slice(1);
 		}
+
 		var offset = maxLength - phone.length;
 		phone = prefix.slice(0, offset) + phone;
 		if (phone.slice(0, prefix.length) != prefix) {
