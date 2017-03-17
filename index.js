@@ -75,7 +75,7 @@ function fixPhone (cc, phone) {
 	}
 }
 
-var getTHLocalPhone = function(phone) {
+var getThLocalPhone = function(phone) {
 	var trimmedPhone = _.trim(phone);
 	var config = countries['th']
 	var phoneWithoutLocalPrefix = trimmedPhone[0] == '0'
@@ -92,7 +92,7 @@ var fixRuPhone = fixPhoneBuilder(10, 12, 'ru');
 var fixKzPhone = fixPhoneBuilder(10, 12, 'kz');
 var fixRoPhone = fixPhoneBuilder(9, 12, 'ro');
 var fixThPhone = function (phone) {
-	var localPhone = getTHLocalPhone(phone)
+	var localPhone = getThLocalPhone(phone)
 	if ([2, 3, 4, 5, 7].indexOf(Number(localPhone[0])) != -1) {
 		return fixThCityPhone(phone)
 	} else {
