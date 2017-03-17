@@ -59,8 +59,8 @@ function decompose (cc, phone) {
 	var config = countries[cc]
 	return {
 		country: config.countryCode,
-		local: config.countryLocalPrefix + phone.slice(config.countryCode.length, -config.phoneLength),
-		phone: phone.slice(-config.phoneLength)
+		local: config.countryLocalPrefix + fixed.slice(config.countryCode.length, -config.phoneLength),
+		phone: fixed.slice(-config.phoneLength)
 	};
 }
 
