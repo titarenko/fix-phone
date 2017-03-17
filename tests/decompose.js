@@ -46,5 +46,12 @@ describe('fix-phone', function () {
 				phone: '123456'
 			});
 		});
+		it('should decompose th short phones', function () {
+			decompose('th', '0621197449').should.eql({
+				country: '+66',
+				local: '621',
+				phone: '197449'
+			});
+		});
 	});
 });
