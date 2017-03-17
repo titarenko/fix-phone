@@ -58,17 +58,29 @@ function fixPhone (cc, phone) {
 	}
 }
 
+var isHasLocalPrefix = function (phone) {
+	var isHasUAPhone = phone.length > 10 && phone[0] == '8'
+	var isHasTHPhone = phone.length >= 9 && phone[0] == '0'
+	
+	return isHasUAPhone || isHasTHPhone
+}
+var getTHLocalPhone = function(phone) {
+	var trimmedPhone = _.trim(phone);
+	var phoneWithoutLocalPrefix = trimmedPhone[0] == '0'
+		? trimmedPhone.slice(1, -1)
+		: trimmedPhone
+	
+	return phoneWithoutLocalPrefix.length > 8
+		? _.trimStart(phoneWithoutLocalPrefix, _.uniq(countryCodes['th']))
+		: phoneWithoutLocalPrefix;
+}
+
 var fixUaPhone = fixPhoneBuilder(9, 13, false, countryCodes['ua']);
 var fixRuPhone = fixPhoneBuilder(10, 12, true, countryCodes['ru']);
 var fixKzPhone = fixPhoneBuilder(10, 12, true, countryCodes['kz']);
 var fixRoPhone = fixPhoneBuilder(9, 12, false, countryCodes['ro']);
-
 var fixThPhone = function (phone) {
-	var trimmedPhone = _.trim(phone);
-	var localPhone = trimmedPhone.length > 8
-		? _.trimStart(trimmedPhone, _.uniq(countryCodes['th']))
-		: trimmedPhone;
-
+	var localPhone = getTHLocalPhone(phone)
 	if ([2, 3, 4, 5, 7].indexOf(Number(localPhone[0])) != -1) {
 		return fixThCityPhone(phone)
 	} else {
@@ -76,20 +88,19 @@ var fixThPhone = function (phone) {
 	}
 }
 
-var fixThMobilePhone = fixPhoneBuilder(8, 12, false, countryCodes['th']);
-var fixThCityPhone = fixPhoneBuilder(8, 11, false, countryCodes['th']);
+var fixThMobilePhone = fixPhoneBuilder(8, 12, true, countryCodes['th']);
+var fixThCityPhone = fixPhoneBuilder(8, 11, true, countryCodes['th']);
 
-function fixPhoneBuilder (minLength, maxLength, replace8, prefix) {
+function fixPhoneBuilder (minLength, maxLength, isReplaceLocalPrefix, prefix) {
 	return function (phone) {
 		phone = phone.replace(/[^\d\+]/g, '');
 		if (phone.length < minLength || phone.length > maxLength) {
 			return null;
 		}
-
-		if (replace8 && phone.length > 10 && phone[0] == '8') {
+		
+		if (isReplaceLocalPrefix && isHasLocalPrefix(phone)) {
 			phone = prefix + phone.slice(1);
 		}
-
 		var offset = maxLength - phone.length;
 		phone = prefix.slice(0, offset) + phone;
 
