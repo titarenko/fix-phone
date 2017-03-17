@@ -58,12 +58,6 @@ function fixPhone (cc, phone) {
 	}
 }
 
-var isHasLocalPrefix = function (phone) {
-	var isHasUAPhone = phone.length > 10 && phone[0] == '8'
-	var isHasTHPhone = phone.length >= 9 && phone[0] == '0'
-	
-	return isHasUAPhone || isHasTHPhone
-}
 var getTHLocalPhone = function(phone) {
 	var trimmedPhone = _.trim(phone);
 	var phoneWithoutLocalPrefix = trimmedPhone[0] == '0'
@@ -75,10 +69,16 @@ var getTHLocalPhone = function(phone) {
 		: phoneWithoutLocalPrefix;
 }
 
-var fixUaPhone = fixPhoneBuilder(9, 13, false, countryCodes['ua']);
-var fixRuPhone = fixPhoneBuilder(10, 12, true, countryCodes['ru']);
-var fixKzPhone = fixPhoneBuilder(10, 12, true, countryCodes['kz']);
-var fixRoPhone = fixPhoneBuilder(9, 12, false, countryCodes['ro']);
+var hasLocalPrefixUaPhone = hasLocalPrefixBuilder('ua')
+var hasLocalPrefixRuPhone = hasLocalPrefixBuilder('ru')
+var hasLocalPrefixKzPhone = hasLocalPrefixBuilder('kz')
+var hasLocalPrefixRoPhone = hasLocalPrefixBuilder('ro')
+var hasLocalPrefixThPhone = hasLocalPrefixBuilder('th')
+
+var fixUaPhone = fixPhoneBuilder(9, 13, hasLocalPrefixUaPhone, countryCodes['ua']);
+var fixRuPhone = fixPhoneBuilder(10, 12, hasLocalPrefixRuPhone, countryCodes['ru']);
+var fixKzPhone = fixPhoneBuilder(10, 12, hasLocalPrefixKzPhone, countryCodes['kz']);
+var fixRoPhone = fixPhoneBuilder(9, 12, hasLocalPrefixRoPhone, countryCodes['ro']);
 var fixThPhone = function (phone) {
 	var localPhone = getTHLocalPhone(phone)
 	if ([2, 3, 4, 5, 7].indexOf(Number(localPhone[0])) != -1) {
@@ -88,26 +88,37 @@ var fixThPhone = function (phone) {
 	}
 }
 
-var fixThMobilePhone = fixPhoneBuilder(8, 12, true, countryCodes['th']);
-var fixThCityPhone = fixPhoneBuilder(8, 11, true, countryCodes['th']);
+var fixThMobilePhone = fixPhoneBuilder(8, 12, hasLocalPrefixThPhone, countryCodes['th']);
+var fixThCityPhone = fixPhoneBuilder(8, 11, hasLocalPrefixThPhone, countryCodes['th']);
 
-function fixPhoneBuilder (minLength, maxLength, isReplaceLocalPrefix, prefix) {
+function fixPhoneBuilder (minLength, maxLength, hasLocalPrefix, prefix) {
 	return function (phone) {
 		phone = phone.replace(/[^\d\+]/g, '');
 		if (phone.length < minLength || phone.length > maxLength) {
 			return null;
 		}
 		
-		if (isReplaceLocalPrefix && isHasLocalPrefix(phone)) {
+		if (hasLocalPrefix(phone)) {
 			phone = prefix + phone.slice(1);
 		}
 		var offset = maxLength - phone.length;
 		phone = prefix.slice(0, offset) + phone;
-
 		if (phone.slice(0, prefix.length) != prefix) {
 			return null;
 		}
 
 		return phone;
 	};
+}
+
+function hasLocalPrefixBuilder (cc) {
+	return function (phone) {
+		switch (cc) {
+			case 'ua': return false
+			case 'ru': return phone.length > 10 && phone[0] == '8'
+			case 'kz': return false
+			case 'ro': return false
+			case 'th' : return phone.length >= 9 && phone[0] == '0'
+		}
+	}
 }
