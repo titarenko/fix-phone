@@ -25,7 +25,7 @@ var countries = {
 		localCodeLength: 3,
 		phoneLength: 7,
 		hasLocalPrefix: function (phone) {
-			return false
+			return phone.length > 10 && phone[0] == '8'
 		}
 	},
 	ro: {
