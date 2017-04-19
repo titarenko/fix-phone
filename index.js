@@ -25,7 +25,7 @@ var countries = {
 		localCodeLength: 3,
 		phoneLength: 7,
 		hasLocalPrefix: function (phone) {
-			return false
+			return phone.length > 10 && phone[0] == '8'
 		}
 	},
 	ro: {
@@ -59,8 +59,8 @@ function decompose (cc, phone) {
 	var config = countries[cc]
 	return {
 		country: config.countryCode,
-		local: config.countryLocalPrefix + phone.slice(config.countryCode.length, -config.phoneLength),
-		phone: phone.slice(-config.phoneLength)
+		local: config.countryLocalPrefix + fixed.slice(config.countryCode.length, -config.phoneLength),
+		phone: fixed.slice(-config.phoneLength)
 	};
 }
 

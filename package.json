@@ -1,6 +1,6 @@
 {
   "name": "fix-phone",
-  "version": "1.1.3",
+  "version": "1.1.8",
   "description": "Validate and format phone number, or return nothing, if such phone is not valid.",
   "main": "index.js",
   "directories": {
@@ -16,7 +16,9 @@
     "should": "^8.0.2"
   },
   "scripts": {
-    "test": "istanbul cover node_modules/mocha/bin/_mocha -- tests && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js"
+    "test-on-travis": "istanbul cover node_modules/mocha/bin/_mocha -- tests && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js",
+    "test": "istanbul cover node_modules/mocha/bin/_mocha -- tests",
+    "release": "npm test && npm version patch && npm publish && git push && git push --tags"
   },
   "repository": {
     "type": "git",
