@@ -29,6 +29,17 @@ fix.decompose('ua', '010-121-22-33'); // returns null
 - ru
 - kz
 - ro
+- cn
+- bg
+- si
+- cz
+- pl
+- hr
+- ee
+- lt
+- lv
+- th
+- ro
 
 ## License
 

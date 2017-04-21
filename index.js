@@ -46,6 +46,87 @@ var countries = {
 			return phone.length >= 9 && phone[0] == '0'
 		}
 	},
+	cn: {
+		countryCode: '+380',
+		countryLocalPrefix: '0',
+		localCodeLength: 3,
+		phoneLength: 7,
+		hasLocalPrefix: function (phone) {
+			return false
+		}
+	},
+	bg: {
+		countryCode: '+380',
+		countryLocalPrefix: '0',
+		localCodeLength: 3,
+		phoneLength: 7,
+		hasLocalPrefix: function (phone) {
+			return false
+		}
+	},
+	si: {
+		countryCode: '+380',
+		countryLocalPrefix: '0',
+		localCodeLength: 3,
+		phoneLength: 7,
+		hasLocalPrefix: function (phone) {
+			return false
+		}
+	},
+	cz: {
+		countryCode: '+380',
+		countryLocalPrefix: '0',
+		localCodeLength: 3,
+		phoneLength: 7,
+		hasLocalPrefix: function (phone) {
+			return false
+		}
+	},
+	pl: {
+		countryCode: '+380',
+		countryLocalPrefix: '0',
+		localCodeLength: 3,
+		phoneLength: 7,
+		hasLocalPrefix: function (phone) {
+			return false
+		}
+	},
+	hr: {
+		countryCode: '+380',
+		countryLocalPrefix: '0',
+		localCodeLength: 3,
+		phoneLength: 7,
+		hasLocalPrefix: function (phone) {
+			return false
+		}
+	},
+	ee: {
+		countryCode: '+380',
+		countryLocalPrefix: '0',
+		localCodeLength: 3,
+		phoneLength: 7,
+		hasLocalPrefix: function (phone) {
+			return false
+		}
+	},
+	lt: {
+		countryCode: '+380',
+		countryLocalPrefix: '0',
+		localCodeLength: 3,
+		phoneLength: 7,
+		hasLocalPrefix: function (phone) {
+			return false
+		}
+	},
+	lv: {
+		countryCode: '+380',
+		countryLocalPrefix: '0',
+		localCodeLength: 3,
+		phoneLength: 7,
+		hasLocalPrefix: function (phone) {
+			return false
+		}
+	}
 }
 
 module.exports = fixPhone;
