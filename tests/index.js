@@ -2,7 +2,11 @@ var fix = require('../');
 var should = require('should');
 var _ = require('lodash');
 
-var codes = ['ua', 'ru', 'kz', 'ro', 'th']
+var codes = [
+	'ua', 'ru', 'kz', 'ro', 'th',
+	'bg', 'si', 'cz', 'pl', 'hr',
+	'ee', 'lt', 'lv'
+]
 
 describe('fix-phone', function () {
 	codes.forEach(function (code) {
