@@ -230,7 +230,6 @@ function fixPhoneBuilder (minLength, maxLength, cc) {
 		if (phone.length < minLength || phone.length > maxLength) {
 			return null;
 		}
-		
 		var config = countries[cc]
 		var prefix = config.countryCode
 		if (config.hasLocalPrefix(phone)) {
