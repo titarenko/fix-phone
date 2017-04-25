@@ -4,8 +4,8 @@ var _ = require('lodash');
 
 var codes = [
 	'ua', 'ru', 'kz', 'ro', 'th',
-	'cn', 'bg', 'si', 'cz', 'pl',
-	'hr', 'ee', 'lt', 'lv'
+	'bg', 'si', 'cz', 'pl', 'hr',
+	'ee', 'lt', 'lv'
 ]
 
 describe('fix-phone', function () {
