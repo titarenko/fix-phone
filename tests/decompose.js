@@ -53,6 +53,13 @@ describe('fix-phone', function () {
 				phone: '123456'
 			});
 		});
+		it('should decompose th mobile phones', function () {
+			decompose('th', '+66 (633) 299999').should.eql({
+				country: '+66',
+				local: '633',
+				phone: '299999'
+			});
+		});
 		it('should decompose th short phones', function () {
 			decompose('th', '0621197449').should.eql({
 				country: '+66',
