@@ -155,6 +155,20 @@ function fixPhone (cc, phone) {
 	}
 }
 
+function getLocalCode (cc, phone) {
+	phone = phone.replace(/[^\d\+]/g, '');
+	var phoneWithoutPlus = phone[0] == '+' ? phone.slice(1) : phone
+	var config = countries[cc]
+	var countryCodeWithoutPlus = config.countryCode.slice(1);
+
+	var hasCountryCode = phoneWithoutPlus.slice(0, countryCodeWithoutPlus.length) == countryCodeWithoutPlus
+	var phoneWithoutCountryCode = hasCountryCode ? phoneWithoutPlus.slice(countryCodeWithoutPlus.length) : phoneWithoutPlus
+
+	var phoneWithoutLocalPrefix = config.hasLocalPrefix(phoneWithoutCountryCode) ? phoneWithoutCountryCode.slice(1) : phoneWithoutCountryCode
+
+	return phoneWithoutLocalPrefix.slice(0, -config.phoneLength)
+}
+
 var fixUaPhone = fixPhoneBuilder(9, 13, 'ua');
 var fixRuPhone = fixPhoneBuilder(10, 12, 'ru');
 var fixKzPhone = fixPhoneBuilder(10, 12, 'kz');
@@ -166,15 +180,15 @@ var fixCzPhone = fixPhoneBuilder(9, 13, 'cz');
 var fixSiPhone = fixPhoneBuilder(8, 12, 'si');
 var fixBgPhone = fixPhoneBuilder(8, 12, 'bg');
 var fixEePhone = function (phone) {
-	var localCode = getLocalCode(phone, 'ee')
+	var localCode = getLocalCode('ee', phone)
 	return localCode.length > 1 ? fixEePhoneWithTwoNumberInLocalCode(phone) : fixEePhoneWithOneNumberInLocalCode(phone)
 }
 var fixHrPhone = function (phone) {
-	var localCode = getLocalCode(phone, 'hr')
+	var localCode = getLocalCode('hr', phone)
 	return localCode.length > 1 ? fixHrPhoneWithTwoNumberInLocalCode(phone) : fixHrPhoneWithOneNumberInLocalCode(phone)
 }
 var fixThPhone = function (phone) {
-	var localCode = getLocalCode(phone, 'th')
+	var localCode = getLocalCode('th', phone)
 	console.log('localPhone', localCode)
 	if ([2, 3, 4, 5, 7].indexOf(Number(localCode[0])) != -1) {
 		return fixThCityPhone(phone)
@@ -210,17 +224,4 @@ function fixPhoneBuilder (minLength, maxLength, cc) {
 
 		return phone;
 	};
-}
-function getLocalCode (phone, cc) {
-	phone = phone.replace(/[^\d\+]/g, '');
-	var phoneWithoutPlus = phone[0] == '+' ? phone.slice(1) : phone
-	var config = countries[cc]
-	var countryCodeWithoutPlus = config.countryCode.slice(1);
-	
-	var hasCountryCode = phoneWithoutPlus.slice(0, countryCodeWithoutPlus.length) == countryCodeWithoutPlus
-	var phoneWithoutCountryCode = hasCountryCode ? phoneWithoutPlus.slice(countryCodeWithoutPlus.length) : phoneWithoutPlus
-	
-	var phoneWithoutLocalPrefix = config.hasLocalPrefix(phoneWithoutCountryCode) ? phoneWithoutCountryCode.slice(1) : phoneWithoutCountryCode
-	
-	return phoneWithoutLocalPrefix.slice(0, -config.phoneLength)
 }
