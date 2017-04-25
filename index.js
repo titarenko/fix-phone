@@ -189,7 +189,6 @@ var fixHrPhone = function (phone) {
 }
 var fixThPhone = function (phone) {
 	var localCode = getLocalCode('th', phone)
-	console.log('localPhone', localCode)
 	if ([2, 3, 4, 5, 7].indexOf(Number(localCode[0])) != -1) {
 		return fixThCityPhone(phone)
 	} else {
