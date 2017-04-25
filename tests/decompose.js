@@ -46,11 +46,11 @@ describe('fix-phone', function () {
 				phone: '123456'
 			});
 		});
-		it('should decompose th city phones', function () {
-			decompose('th', '+66633548112').should.eql({
+		it('should decompose th mobile phones', function () {
+			decompose('th', '+66 (633) 299999').should.eql({
 				country: '+66',
 				local: '633',
-				phone: '548112'
+				phone: '299999'
 			});
 		});
 		it('should decompose th short phones', function () {
