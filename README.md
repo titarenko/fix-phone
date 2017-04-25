@@ -40,6 +40,10 @@ fix.decompose('ua', '010-121-22-33'); // returns null
 - th
 - ro
 
+## Contributors
+
+- [akhll](https://github.com/akhll)
+
 ## License
 
 MIT
