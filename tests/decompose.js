@@ -172,6 +172,14 @@ describe('fix-phone', function () {
 			});
 		});
 
+		it('should decompose bg mobile phones', function () {
+			decompose('bg', '+359212345678').should.eql({
+				country: '+359',
+				local: '21',
+				phone: '2345678'
+			});
+		});
+
 		it('should decompose kg phones', function () {
 			decompose('kg', '+996312234567').should.eql({
 				country: '+996',
