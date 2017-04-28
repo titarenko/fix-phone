@@ -49,10 +49,10 @@ var countries = {
 	bg: {
 		countryCode: '+359',
 		countryLocalPrefix: '',
-		localCodeLength: 1,
+		localCodeLength: 2,
 		phoneLength: 7,
 		hasLocalPrefix: function (phone) {
-			return false
+			return phone.length >= 8 && phone[0] == '0'
 		}
 	},
 	si: {
@@ -188,8 +188,13 @@ var fixLtPhone = fixPhoneBuilder(8, 12, 'lt');
 var fixPlPhone = fixPhoneBuilder(9, 12, 'pl');
 var fixCzPhone = fixPhoneBuilder(9, 13, 'cz');
 var fixSiPhone = fixPhoneBuilder(8, 12, 'si');
-var fixBgPhone = fixPhoneBuilder(8, 12, 'bg');
 var fixKgPhone = fixPhoneBuilder(9, 13, 'kg');
+var fixBgPhone = function (phone) {
+	var localCode = getLocalCode('bg', phone)
+	console.log('phone', phone)
+	console.log('localCode', localCode)
+	return localCode.length > 1 ? fixBgPhoneMobile(phone) : fixBgCityPhone(phone)
+}
 var fixEePhone = function (phone) {
 	var localCode = getLocalCode('ee', phone)
 	return localCode.length > 1 ? fixEePhoneWithTwoNumberInLocalCode(phone) : fixEePhoneWithOneNumberInLocalCode(phone)
@@ -213,6 +218,8 @@ var fixEePhoneWithOneNumberInLocalCode = fixPhoneBuilder(7, 11, 'ee');
 var fixEePhoneWithTwoNumberInLocalCode = fixPhoneBuilder(8, 12, 'ee');
 var fixHrPhoneWithOneNumberInLocalCode = fixPhoneBuilder(8, 12, 'hr');
 var fixHrPhoneWithTwoNumberInLocalCode = fixPhoneBuilder(9, 13, 'hr');
+var fixBgCityPhone = fixPhoneBuilder(7, 12, 'bg');
+var fixBgPhoneMobile = fixPhoneBuilder(8, 13, 'bg');
 
 function fixPhoneBuilder (minLength, maxLength, cc) {
 	return function (phone) {
