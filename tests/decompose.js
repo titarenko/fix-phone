@@ -171,5 +171,21 @@ describe('fix-phone', function () {
 				phone: '1234567'
 			});
 		});
+
+		it('should decompose kg phones', function () {
+			decompose('kg', '+996312234567').should.eql({
+				country: '+996',
+				local: '31',
+				phone: '2234567'
+			});
+		});
+		
+		it('should decompose kg short phones', function () {
+			decompose('kg', '0312234567').should.eql({
+				country: '+996',
+				local: '31',
+				phone: '2234567'
+			});
+		});
 	});
 });

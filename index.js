@@ -117,6 +117,15 @@ var countries = {
 		hasLocalPrefix: function (phone) {
 			return false
 		}
+	},
+	kg: {
+		countryCode: '+996',
+		countryLocalPrefix: '',
+		localCodeLength: 1,
+		phoneLength: 7,
+		hasLocalPrefix: function (phone) {
+			return phone.length >= 10 && phone[0] == '0'
+		}
 	}
 }
 
@@ -151,6 +160,7 @@ function fixPhone (cc, phone) {
 		case 'cz': return fixCzPhone(phone);
 		case 'si': return fixSiPhone(phone);
 		case 'bg': return fixBgPhone(phone);
+		case 'kg': return fixKgPhone(phone);
 		default: return null;
 	}
 }
@@ -179,6 +189,7 @@ var fixPlPhone = fixPhoneBuilder(9, 12, 'pl');
 var fixCzPhone = fixPhoneBuilder(9, 13, 'cz');
 var fixSiPhone = fixPhoneBuilder(8, 12, 'si');
 var fixBgPhone = fixPhoneBuilder(8, 12, 'bg');
+var fixKgPhone = fixPhoneBuilder(9, 13, 'kg');
 var fixEePhone = function (phone) {
 	var localCode = getLocalCode('ee', phone)
 	return localCode.length > 1 ? fixEePhoneWithTwoNumberInLocalCode(phone) : fixEePhoneWithOneNumberInLocalCode(phone)
