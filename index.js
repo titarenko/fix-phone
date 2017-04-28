@@ -191,8 +191,6 @@ var fixSiPhone = fixPhoneBuilder(8, 12, 'si');
 var fixKgPhone = fixPhoneBuilder(9, 13, 'kg');
 var fixBgPhone = function (phone) {
 	var localCode = getLocalCode('bg', phone)
-	console.log('phone', phone)
-	console.log('localCode', localCode)
 	return localCode.length > 1 ? fixBgPhoneMobile(phone) : fixBgCityPhone(phone)
 }
 var fixEePhone = function (phone) {
