@@ -151,24 +151,40 @@ describe('fix-phone', function () {
 		it('should decompose pl phones', function () {
 			decompose('pl', '+48221234567').should.eql({
 				country: '+48',
-				local: '22',
-				phone: '1234567'
+				local: '221',
+				phone: '234567'
 			});
 		});
 		
 		it('should decompose pl short phones', function () {
 			decompose('pl', '0221234567').should.eql({
 				country: '+48',
-				local: '22',
-				phone: '1234567'
+				local: '221',
+				phone: '234567'
 			});
 		});
 		
 		it('should decompose bg phones', function () {
-			decompose('bg', '+35921234567').should.eql({
+			decompose('bg', '+35921123456').should.eql({
 				country: '+359',
 				local: '2',
-				phone: '1234567'
+				phone: '1123456'
+			});
+		});
+		
+		it('should decompose bg short phones', function () {
+			decompose('bg', '010123456').should.eql({
+				country: '+359',
+				local: '1',
+				phone: '0123456'
+			});
+		});
+
+		it('should decompose bg mobile phones', function () {
+			decompose('bg', '+359212345678').should.eql({
+				country: '+359',
+				local: '21',
+				phone: '2345678'
 			});
 		});
 
