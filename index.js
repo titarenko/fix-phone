@@ -49,7 +49,7 @@ var countries = {
 	bg: {
 		countryCode: '+359',
 		countryLocalPrefix: '',
-		localCodeLength: 1,
+		localCodeLength: 2,
 		phoneLength: 7,
 		hasLocalPrefix: function (phone) {
 			return phone.length >= 8 && phone[0] == '0'
