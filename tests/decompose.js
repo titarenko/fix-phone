@@ -211,5 +211,46 @@ describe('fix-phone', function () {
 				phone: '2234567'
 			});
 		});
+		
+		it('should decompose gr phones', function () {
+			decompose('gr', '+302121234567').should.eql({
+				country: '+30',
+				local: '212',
+				phone: '1234567'
+			});
+		});
+		
+		it('should decompose cy phones', function () {
+			decompose('cy', '+35722123456').should.eql({
+				country: '+357',
+				local: '22',
+				phone: '123456'
+			});
+		});
+		
+		it('should decompose es phones', function () {
+			decompose('es', '+34600123456').should.eql({
+				country: '+34',
+				local: '600',
+				phone: '123456'
+			});
+		});
+		
+		it('should decompose pt phones', function () {
+			decompose('pt', '+351210123456').should.eql({
+				country: '+351',
+				local: '210',
+				phone: '123456'
+			});
+		});
+		
+		it('should decompose it phones', function () {
+			decompose('it', '+390201234567').should.eql({
+				country: '+39',
+				local: '020',
+				phone: '1234567'
+			});
+		});
+		
 	});
 });
