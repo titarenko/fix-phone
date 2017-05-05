@@ -40,6 +40,11 @@ fix.decompose('ua', '010-121-22-33'); // returns null
 - th
 - ro
 - kg
+- gr
+- cy
+- es
+- pt
+- it
 
 ## Contributors
 
