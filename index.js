@@ -171,6 +171,24 @@ var countries = {
 		hasLocalPrefix: function (phone) {
 			return false
 		}
+	},
+	hu: {
+		countryCode: '+36',
+		countryLocalPrefix: '',
+		localCodeLength: 2,
+		phoneLength: 6,
+		hasLocalPrefix: function (phone) {
+			return false
+		}
+	},
+	de: {
+		countryCode: '+49',
+		countryLocalPrefix: '',
+		localCodeLength: 3,
+		phoneLength: 8,
+		hasLocalPrefix: function (phone) {
+			return false
+		}
 	}
 }
 
@@ -191,6 +209,7 @@ function decompose (cc, phone) {
 }
 
 function fixPhone (cc, phone) {
+	console.log(phone)
 	switch (cc) {
 		case 'ru': return fixRuPhone(phone);
 		case 'ua': return fixUaPhone(phone);
@@ -211,6 +230,8 @@ function fixPhone (cc, phone) {
 		case 'es': return fixEsPhone(phone);
 		case 'pt': return fixPtPhone(phone);
 		case 'it': return fixItPhone(phone);
+		case 'hu': return fixHuPhone(phone);
+		case 'de': return fixDePhone(phone);
 		default: return null;
 	}
 }
@@ -244,6 +265,14 @@ var fixCyPhone = fixPhoneBuilder(8, 12, 'cy');
 var fixEsPhone = fixPhoneBuilder(9, 12, 'es');
 var fixPtPhone = fixPhoneBuilder(9, 13, 'pt');
 var fixItPhone = fixPhoneBuilder(10, 13, 'it');
+var fixHuPhone = function (phone) {
+	var localCode = getLocalCode('hu', phone)
+	return localCode.length > 2 ? fixHuPhoneWithThreeNumber(phone) : fixHuPhoneWithTwoNumber(phone)
+}
+var fixDePhone = function (phone) {
+	var localCode = getLocalCode('de', phone)
+	return localCode.length > 2 ? fixDePhoneWithThreeNumber(phone) : fixDePhoneWithTwoNumber(phone)
+}
 var fixBgPhone = function (phone) {
 	var localCode = getLocalCode('bg', phone)
 	return localCode.length > 1 ? fixBgPhoneMobile(phone) : fixBgCityPhone(phone)
@@ -273,10 +302,18 @@ var fixHrPhoneWithOneNumberInLocalCode = fixPhoneBuilder(8, 12, 'hr');
 var fixHrPhoneWithTwoNumberInLocalCode = fixPhoneBuilder(9, 13, 'hr');
 var fixBgCityPhone = fixPhoneBuilder(8, 12, 'bg');
 var fixBgPhoneMobile = fixPhoneBuilder(9, 13, 'bg');
+var fixDePhoneWithTwoNumber = fixPhoneBuilder(9, 13, 'de');
+var fixDePhoneWithThreeNumber = fixPhoneBuilder(10, 14, 'de');
+var fixHuPhoneWithTwoNumber = fixPhoneBuilder(8, 11, 'hu');
+var fixHuPhoneWithThreeNumber = fixPhoneBuilder(9, 12, 'hu');
 
 function fixPhoneBuilder (minLength, maxLength, cc) {
 	return function (phone) {
 		phone = phone.replace(/[^\d\+]/g, '');
+		if (cc == 'de') {
+			console.log('phone', phone)
+			console.log('phone.length', phone.length)
+		}
 		if (phone.length < minLength || phone.length > maxLength) {
 			return null;
 		}
