@@ -209,7 +209,6 @@ function decompose (cc, phone) {
 }
 
 function fixPhone (cc, phone) {
-	console.log(phone)
 	switch (cc) {
 		case 'ru': return fixRuPhone(phone);
 		case 'ua': return fixUaPhone(phone);
@@ -310,10 +309,6 @@ var fixHuPhoneWithThreeNumber = fixPhoneBuilder(9, 12, 'hu');
 function fixPhoneBuilder (minLength, maxLength, cc) {
 	return function (phone) {
 		phone = phone.replace(/[^\d\+]/g, '');
-		if (cc == 'de') {
-			console.log('phone', phone)
-			console.log('phone.length', phone.length)
-		}
 		if (phone.length < minLength || phone.length > maxLength) {
 			return null;
 		}
