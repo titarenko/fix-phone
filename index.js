@@ -176,7 +176,6 @@ var countries = {
 		countryCode: '+36',
 		countryLocalPrefix: '',
 		localCodeLength: 2,
-		phoneLength: 6,
 		hasLocalPrefix: function (phone) {
 			return false
 		}
@@ -185,7 +184,6 @@ var countries = {
 		countryCode: '+49',
 		countryLocalPrefix: '',
 		localCodeLength: 3,
-		phoneLength: 8,
 		hasLocalPrefix: function (phone) {
 			return false
 		}
@@ -200,11 +198,13 @@ function decompose (cc, phone) {
 	if (!fixed) {
 		return null;
 	}
+
 	var config = countries[cc]
+	var phoneNumberLength = getPhoneNumberLength(cc, phone)
 	return {
 		country: config.countryCode,
-		local: config.countryLocalPrefix + fixed.slice(config.countryCode.length, -config.phoneLength),
-		phone: fixed.slice(-config.phoneLength)
+		local: config.countryLocalPrefix + fixed.slice(config.countryCode.length, -(config.phoneLength ? config.phoneLength : phoneNumberLength)),
+		phone: fixed.slice(-(config.phoneLength ? config.phoneLength : phoneNumberLength))
 	};
 }
 
@@ -240,13 +240,22 @@ function getLocalCode (cc, phone) {
 	var phoneWithoutPlus = phone[0] == '+' ? phone.slice(1) : phone
 	var config = countries[cc]
 	var countryCodeWithoutPlus = config.countryCode.slice(1);
-
 	var hasCountryCode = phoneWithoutPlus.slice(0, countryCodeWithoutPlus.length) == countryCodeWithoutPlus
 	var phoneWithoutCountryCode = hasCountryCode ? phoneWithoutPlus.slice(countryCodeWithoutPlus.length) : phoneWithoutPlus
-
 	var phoneWithoutLocalPrefix = config.hasLocalPrefix(phoneWithoutCountryCode) ? phoneWithoutCountryCode.slice(1) : phoneWithoutCountryCode
-
 	return phoneWithoutLocalPrefix.slice(0, -config.phoneLength)
+}
+
+function getPhoneNumberLength (cc, phone) {
+	phone = phone.replace(/[^\d\+]/g, '');
+	var phoneWithoutPlus = phone[0] == '+' ? phone.slice(1) : phone
+	var config = countries[cc]
+	var countryCodeWithoutPlus = config.countryCode.slice(1);
+	var hasCountryCode = phoneWithoutPlus.slice(0, countryCodeWithoutPlus.length) == countryCodeWithoutPlus
+	var phoneWithoutCountryCode = hasCountryCode ? phoneWithoutPlus.slice(countryCodeWithoutPlus.length) : phoneWithoutPlus
+	var phoneWithoutLocalPrefix = config.hasLocalPrefix(phoneWithoutCountryCode) ? phoneWithoutCountryCode.slice(1) : phoneWithoutCountryCode
+	var phoneWithoutLocalCode =  phoneWithoutLocalPrefix.slice(config.localCodeLength)
+	return phoneWithoutLocalCode.length
 }
 
 var fixUaPhone = fixPhoneBuilder(9, 13, 'ua');
@@ -265,12 +274,12 @@ var fixEsPhone = fixPhoneBuilder(9, 12, 'es');
 var fixPtPhone = fixPhoneBuilder(9, 13, 'pt');
 var fixItPhone = fixPhoneBuilder(10, 13, 'it');
 var fixHuPhone = function (phone) {
-	var localCode = getLocalCode('hu', phone)
-	return localCode.length > 2 ? fixHuPhoneWithThreeNumber(phone) : fixHuPhoneWithTwoNumber(phone)
+	var phoneNumberLength = getPhoneNumberLength('hu', phone)
+	return phoneNumberLength > 6 ? fixHuPhoneWithThreeNumber(phone) : fixHuPhoneWithTwoNumber(phone)
 }
 var fixDePhone = function (phone) {
-	var localCode = getLocalCode('de', phone)
-	return localCode.length > 2 ? fixDePhoneWithThreeNumber(phone) : fixDePhoneWithTwoNumber(phone)
+	var phoneNumberLength = getPhoneNumberLength('de', phone)
+	return phoneNumberLength > 7 ? fixDePhoneWithThreeNumber(phone) : fixDePhoneWithTwoNumber(phone)
 }
 var fixBgPhone = function (phone) {
 	var localCode = getLocalCode('bg', phone)
