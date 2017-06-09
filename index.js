@@ -200,11 +200,13 @@ function decompose (cc, phone) {
 	}
 
 	var config = countries[cc]
-	var phoneNumberLength = getPhoneNumberLength(cc, phone)
+	var phoneLength = config.phoneLength
+		? config.phoneLength
+		: getPhoneNumberLength(cc, phone)
 	return {
 		country: config.countryCode,
-		local: config.countryLocalPrefix + fixed.slice(config.countryCode.length, -(config.phoneLength ? config.phoneLength : phoneNumberLength)),
-		phone: fixed.slice(-(config.phoneLength ? config.phoneLength : phoneNumberLength))
+		local: config.countryLocalPrefix + fixed.slice(config.countryCode.length, -phoneLength),
+		phone: fixed.slice(-phoneLength)
 	};
 }
 
@@ -241,8 +243,12 @@ function getLocalCode (cc, phone) {
 	var config = countries[cc]
 	var countryCodeWithoutPlus = config.countryCode.slice(1);
 	var hasCountryCode = phoneWithoutPlus.slice(0, countryCodeWithoutPlus.length) == countryCodeWithoutPlus
-	var phoneWithoutCountryCode = hasCountryCode ? phoneWithoutPlus.slice(countryCodeWithoutPlus.length) : phoneWithoutPlus
-	var phoneWithoutLocalPrefix = config.hasLocalPrefix(phoneWithoutCountryCode) ? phoneWithoutCountryCode.slice(1) : phoneWithoutCountryCode
+	var phoneWithoutCountryCode = hasCountryCode
+		? phoneWithoutPlus.slice(countryCodeWithoutPlus.length)
+		: phoneWithoutPlus
+	var phoneWithoutLocalPrefix = config.hasLocalPrefix(phoneWithoutCountryCode)
+		? phoneWithoutCountryCode.slice(1)
+		: phoneWithoutCountryCode
 	return phoneWithoutLocalPrefix.slice(0, -config.phoneLength)
 }
 
@@ -252,8 +258,12 @@ function getPhoneNumberLength (cc, phone) {
 	var config = countries[cc]
 	var countryCodeWithoutPlus = config.countryCode.slice(1);
 	var hasCountryCode = phoneWithoutPlus.slice(0, countryCodeWithoutPlus.length) == countryCodeWithoutPlus
-	var phoneWithoutCountryCode = hasCountryCode ? phoneWithoutPlus.slice(countryCodeWithoutPlus.length) : phoneWithoutPlus
-	var phoneWithoutLocalPrefix = config.hasLocalPrefix(phoneWithoutCountryCode) ? phoneWithoutCountryCode.slice(1) : phoneWithoutCountryCode
+	var phoneWithoutCountryCode = hasCountryCode
+		? phoneWithoutPlus.slice(countryCodeWithoutPlus.length)
+		: phoneWithoutPlus
+	var phoneWithoutLocalPrefix = config.hasLocalPrefix(phoneWithoutCountryCode)
+		? phoneWithoutCountryCode.slice(1)
+		: phoneWithoutCountryCode
 	var phoneWithoutLocalCode =  phoneWithoutLocalPrefix.slice(config.localCodeLength)
 	return phoneWithoutLocalCode.length
 }
@@ -275,23 +285,33 @@ var fixPtPhone = fixPhoneBuilder(9, 13, 'pt');
 var fixItPhone = fixPhoneBuilder(10, 13, 'it');
 var fixHuPhone = function (phone) {
 	var phoneNumberLength = getPhoneNumberLength('hu', phone)
-	return phoneNumberLength > 6 ? fixHuPhoneWithThreeNumber(phone) : fixHuPhoneWithTwoNumber(phone)
+	return phoneNumberLength > 6
+		? fixHuPhoneLong(phone)
+		: fixHuPhoneShort(phone)
 }
 var fixDePhone = function (phone) {
 	var phoneNumberLength = getPhoneNumberLength('de', phone)
-	return phoneNumberLength > 7 ? fixDePhoneWithThreeNumber(phone) : fixDePhoneWithTwoNumber(phone)
+	return phoneNumberLength > 7
+		? fixDePhoneLong(phone)
+		: fixDePhoneShort(phone)
 }
 var fixBgPhone = function (phone) {
 	var localCode = getLocalCode('bg', phone)
-	return localCode.length > 1 ? fixBgPhoneMobile(phone) : fixBgCityPhone(phone)
+	return localCode.length > 1
+		? fixBgPhoneMobile(phone)
+		: fixBgCityPhone(phone)
 }
 var fixEePhone = function (phone) {
 	var localCode = getLocalCode('ee', phone)
-	return localCode.length > 1 ? fixEePhoneWithTwoNumberInLocalCode(phone) : fixEePhoneWithOneNumberInLocalCode(phone)
+	return localCode.length > 1
+		? fixEePhoneWithTwoNumberInLocalCode(phone)
+		: fixEePhoneWithOneNumberInLocalCode(phone)
 }
 var fixHrPhone = function (phone) {
 	var localCode = getLocalCode('hr', phone)
-	return localCode.length > 1 ? fixHrPhoneWithTwoNumberInLocalCode(phone) : fixHrPhoneWithOneNumberInLocalCode(phone)
+	return localCode.length > 1
+		? fixHrPhoneWithTwoNumberInLocalCode(phone)
+		: fixHrPhoneWithOneNumberInLocalCode(phone)
 }
 var fixThPhone = function (phone) {
 	var localCode = getLocalCode('th', phone)
@@ -310,10 +330,10 @@ var fixHrPhoneWithOneNumberInLocalCode = fixPhoneBuilder(8, 12, 'hr');
 var fixHrPhoneWithTwoNumberInLocalCode = fixPhoneBuilder(9, 13, 'hr');
 var fixBgCityPhone = fixPhoneBuilder(8, 12, 'bg');
 var fixBgPhoneMobile = fixPhoneBuilder(9, 13, 'bg');
-var fixDePhoneWithTwoNumber = fixPhoneBuilder(9, 13, 'de');
-var fixDePhoneWithThreeNumber = fixPhoneBuilder(10, 14, 'de');
-var fixHuPhoneWithTwoNumber = fixPhoneBuilder(8, 11, 'hu');
-var fixHuPhoneWithThreeNumber = fixPhoneBuilder(9, 12, 'hu');
+var fixDePhoneShort = fixPhoneBuilder(9, 13, 'de');
+var fixDePhoneLong = fixPhoneBuilder(10, 14, 'de');
+var fixHuPhoneShort = fixPhoneBuilder(8, 11, 'hu');
+var fixHuPhoneLong = fixPhoneBuilder(9, 12, 'hu');
 
 function fixPhoneBuilder (minLength, maxLength, cc) {
 	return function (phone) {
