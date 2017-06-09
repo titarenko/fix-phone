@@ -6,7 +6,8 @@ var codes = [
 	'ua', 'ru', 'kz', 'ro', 'th',
 	'bg', 'si', 'cz', 'pl', 'hr',
 	'ee', 'lt', 'lv', 'kg', 'gr',
-	'cy', 'es', 'pt', 'it'
+	'cy', 'es', 'pt', 'it', 'de',
+	'hu'
 ]
 
 describe('fix-phone', function () {

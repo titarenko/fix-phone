@@ -251,6 +251,37 @@ describe('fix-phone', function () {
 				phone: '1234567'
 			});
 		});
+		it('should decompose de short phones', function () {
+			decompose('de', '+492011234567').should.eql({
+				country: '+49',
+				local: '20',
+				phone: '11234567'
+			});
+		});
+
+		it('should decompose de phones', function () {
+			decompose('de', '+4915212345678').should.eql({
+				country: '+49',
+				local: '152',
+				phone: '12345678'
+			});
+		});
+
+		it('should decompose hu short phones', function () {
+			decompose('hu', '+3610123456').should.eql({
+				country: '+36',
+				local: '10',
+				phone: '123456'
+			});
+		});
+
+		it('should decompose hu phones', function () {
+			decompose('hu', '+36201234567').should.eql({
+				country: '+36',
+				local: '201',
+				phone: '234567'
+			});
+		});
 		
 	});
 });
