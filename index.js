@@ -176,6 +176,7 @@ var countries = {
 		countryCode: '+36',
 		countryLocalPrefix: '',
 		localCodeLength: 2,
+		phoneLength: 7,
 		hasLocalPrefix: function (phone) {
 			return false
 		}
@@ -184,6 +185,7 @@ var countries = {
 		countryCode: '+49',
 		countryLocalPrefix: '',
 		localCodeLength: 3,
+		phoneLength: 8,
 		hasLocalPrefix: function (phone) {
 			return false
 		}
@@ -198,15 +200,11 @@ function decompose (cc, phone) {
 	if (!fixed) {
 		return null;
 	}
-
 	var config = countries[cc]
-	var phoneLength = config.phoneLength
-		? config.phoneLength
-		: getPhoneNumberLength(cc, phone)
 	return {
 		country: config.countryCode,
-		local: config.countryLocalPrefix + fixed.slice(config.countryCode.length, -phoneLength),
-		phone: fixed.slice(-phoneLength)
+		local: config.countryLocalPrefix + fixed.slice(config.countryCode.length, -config.phoneLength),
+		phone: fixed.slice(-config.phoneLength)
 	};
 }
 
@@ -242,30 +240,17 @@ function getLocalCode (cc, phone) {
 	var phoneWithoutPlus = phone[0] == '+' ? phone.slice(1) : phone
 	var config = countries[cc]
 	var countryCodeWithoutPlus = config.countryCode.slice(1);
-	var hasCountryCode = phoneWithoutPlus.slice(0, countryCodeWithoutPlus.length) == countryCodeWithoutPlus
-	var phoneWithoutCountryCode = hasCountryCode
-		? phoneWithoutPlus.slice(countryCodeWithoutPlus.length)
-		: phoneWithoutPlus
-	var phoneWithoutLocalPrefix = config.hasLocalPrefix(phoneWithoutCountryCode)
-		? phoneWithoutCountryCode.slice(1)
-		: phoneWithoutCountryCode
-	return phoneWithoutLocalPrefix.slice(0, -config.phoneLength)
-}
 
-function getPhoneNumberLength (cc, phone) {
-	phone = phone.replace(/[^\d\+]/g, '');
-	var phoneWithoutPlus = phone[0] == '+' ? phone.slice(1) : phone
-	var config = countries[cc]
-	var countryCodeWithoutPlus = config.countryCode.slice(1);
 	var hasCountryCode = phoneWithoutPlus.slice(0, countryCodeWithoutPlus.length) == countryCodeWithoutPlus
 	var phoneWithoutCountryCode = hasCountryCode
 		? phoneWithoutPlus.slice(countryCodeWithoutPlus.length)
 		: phoneWithoutPlus
+
 	var phoneWithoutLocalPrefix = config.hasLocalPrefix(phoneWithoutCountryCode)
 		? phoneWithoutCountryCode.slice(1)
 		: phoneWithoutCountryCode
-	var phoneWithoutLocalCode =  phoneWithoutLocalPrefix.slice(config.localCodeLength)
-	return phoneWithoutLocalCode.length
+
+	return phoneWithoutLocalPrefix.slice(0, -config.phoneLength)
 }
 
 var fixUaPhone = fixPhoneBuilder(9, 13, 'ua');
@@ -284,16 +269,16 @@ var fixEsPhone = fixPhoneBuilder(9, 12, 'es');
 var fixPtPhone = fixPhoneBuilder(9, 13, 'pt');
 var fixItPhone = fixPhoneBuilder(10, 13, 'it');
 var fixHuPhone = function (phone) {
-	var phoneNumberLength = getPhoneNumberLength('hu', phone)
-	return phoneNumberLength > 6
-		? fixHuPhoneLong(phone)
-		: fixHuPhoneShort(phone)
+	var localCode = getLocalCode('hu', phone)
+	return localCode.length > 1
+		? fixHuLongPhone(phone)
+		: fixHuShortPhone(phone)
 }
 var fixDePhone = function (phone) {
-	var phoneNumberLength = getPhoneNumberLength('de', phone)
-	return phoneNumberLength > 7
-		? fixDePhoneLong(phone)
-		: fixDePhoneShort(phone)
+	var localCode = getLocalCode('de', phone)
+	return localCode.length > 2
+		? fixDeLongPhone(phone)
+		: fixDeShortPhone(phone)
 }
 var fixBgPhone = function (phone) {
 	var localCode = getLocalCode('bg', phone)
@@ -330,10 +315,10 @@ var fixHrPhoneWithOneNumberInLocalCode = fixPhoneBuilder(8, 12, 'hr');
 var fixHrPhoneWithTwoNumberInLocalCode = fixPhoneBuilder(9, 13, 'hr');
 var fixBgCityPhone = fixPhoneBuilder(8, 12, 'bg');
 var fixBgPhoneMobile = fixPhoneBuilder(9, 13, 'bg');
-var fixDePhoneShort = fixPhoneBuilder(9, 13, 'de');
-var fixDePhoneLong = fixPhoneBuilder(10, 14, 'de');
-var fixHuPhoneShort = fixPhoneBuilder(8, 11, 'hu');
-var fixHuPhoneLong = fixPhoneBuilder(9, 12, 'hu');
+var fixDeShortPhone = fixPhoneBuilder(9, 13, 'de');
+var fixDeLongPhone = fixPhoneBuilder(10, 14, 'de');
+var fixHuShortPhone = fixPhoneBuilder(8, 11, 'hu');
+var fixHuLongPhone = fixPhoneBuilder(9, 12, 'hu');
 
 function fixPhoneBuilder (minLength, maxLength, cc) {
 	return function (phone) {

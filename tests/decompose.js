@@ -254,8 +254,8 @@ describe('fix-phone', function () {
 		it('should decompose de short phones', function () {
 			decompose('de', '+492011234567').should.eql({
 				country: '+49',
-				local: '201',
-				phone: '1234567'
+				local: '20',
+				phone: '11234567'
 			});
 		});
 
@@ -270,8 +270,8 @@ describe('fix-phone', function () {
 		it('should decompose hu short phones', function () {
 			decompose('hu', '+3610123456').should.eql({
 				country: '+36',
-				local: '10',
-				phone: '123456'
+				local: '1',
+				phone: '0123456'
 			});
 		});
 
