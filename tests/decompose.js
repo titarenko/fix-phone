@@ -282,6 +282,14 @@ describe('fix-phone', function () {
 				phone: '1234567'
 			});
 		});
+
+		it('should decompose fr phones', function () {
+			decompose('fr', '+33101123456').should.eql({
+				country: '+33',
+				local: '101',
+				phone: '123456'
+			});
+		});
 		
 	});
 });
