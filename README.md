@@ -45,10 +45,12 @@ fix.decompose('ua', '010-121-22-33'); // returns null
 - es
 - pt
 - it
+- fr
 
 ## Contributors
 
 - [akhll](https://github.com/akhll)
+- [MaksimVovk](https://github.com/MaksimVovk)
 
 ## License
 
