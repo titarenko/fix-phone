@@ -189,6 +189,15 @@ var countries = {
 		hasLocalPrefix: function (phone) {
 			return false
 		}
+	},
+	fr: {
+		countryCode: '+33',
+		countryLocalPrefix: '',
+		localCodeLength: 3,
+		phoneLength: 6,
+		hasLocalPrefix: function (phone) {
+			return phone.length >= 10 && phone[0] == '0'
+		}
 	}
 }
 
@@ -231,6 +240,7 @@ function fixPhone (cc, phone) {
 		case 'it': return fixItPhone(phone);
 		case 'hu': return fixHuPhone(phone);
 		case 'de': return fixDePhone(phone);
+		case 'fr': return fixFrPhone(phone);
 		default: return null;
 	}
 }
@@ -268,6 +278,7 @@ var fixCyPhone = fixPhoneBuilder(8, 12, 'cy');
 var fixEsPhone = fixPhoneBuilder(9, 12, 'es');
 var fixPtPhone = fixPhoneBuilder(9, 13, 'pt');
 var fixItPhone = fixPhoneBuilder(10, 13, 'it');
+var fixFrPhone = fixPhoneBuilder(9, 12, 'fr');
 var fixHuPhone = function (phone) {
 	var localCode = getLocalCode('hu', phone)
 	return localCode.length > 1
