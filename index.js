@@ -8,10 +8,7 @@ var countries = {
 		phoneLength: 7,
 		hasLocalPrefix: function (phone) {
 			return false
-		},
-		hasBadCountryCode: function (phone) {
-			return false
-		},
+		}
 	},
 	ru: {
 		countryCode: '+7',
@@ -20,9 +17,6 @@ var countries = {
 		phoneLength: 7,
 		hasLocalPrefix: function (phone) {
 			return phone.length > 10 && phone[0] == '8'
-		},
-		hasBadCountryCode: function (phone) {
-			return false
 		}
 	},
 	kz: {
@@ -32,9 +26,6 @@ var countries = {
 		phoneLength: 7,
 		hasLocalPrefix: function (phone) {
 			return phone.length > 10 && phone[0] == '8'
-		},
-		hasBadCountryCode: function (phone) {
-			return false
 		}
 	},
 	ro: {
@@ -43,9 +34,6 @@ var countries = {
 		localCodeLength: 3,
 		phoneLength: 6,
 		hasLocalPrefix: function (phone) {
-			return false
-		},
-		hasBadCountryCode: function (phone) {
 			return false
 		}
 	},
@@ -56,9 +44,6 @@ var countries = {
 		phoneLength: 6,
 		hasLocalPrefix: function (phone) {
 			return phone.length >= 9 && phone[0] == '0'
-		},
-		hasBadCountryCode: function (phone) {
-			return false
 		}
 	},
 	bg: {
@@ -68,9 +53,6 @@ var countries = {
 		phoneLength: 7,
 		hasLocalPrefix: function (phone) {
 			return phone.length >= 8 && phone[0] == '0'
-		},
-		hasBadCountryCode: function (phone) {
-			return false
 		}
 	},
 	si: {
@@ -80,9 +62,6 @@ var countries = {
 		phoneLength: 7,
 		hasLocalPrefix: function (phone) {
 			return phone.length >= 9 && phone[0] == '0'
-		},
-		hasBadCountryCode: function (phone) {
-			return false
 		}
 	},
 	cz: {
@@ -91,9 +70,6 @@ var countries = {
 		localCodeLength: 2,
 		phoneLength: 7,
 		hasLocalPrefix: function (phone) {
-			return false
-		},
-		hasBadCountryCode: function (phone) {
 			return false
 		}
 	},
@@ -104,9 +80,6 @@ var countries = {
 		phoneLength: 6,
 		hasLocalPrefix: function (phone) {
 			return phone.length >= 9 && phone[0] == '0'
-		},
-		hasBadCountryCode: function (phone) {
-			return false
 		}
 	},
 	hr: {
@@ -116,9 +89,6 @@ var countries = {
 		phoneLength: 7,
 		hasLocalPrefix: function (phone) {
 			return phone.length >= 9 && phone[0] == '0'
-		},
-		hasBadCountryCode: function (phone) {
-			return false
 		}
 	},
 	ee: {
@@ -127,9 +97,6 @@ var countries = {
 		localCodeLength: 1,
 		phoneLength: 6,
 		hasLocalPrefix: function (phone) {
-			return false
-		},
-		hasBadCountryCode: function (phone) {
 			return false
 		}
 	},
@@ -140,9 +107,6 @@ var countries = {
 		phoneLength: 6,
 		hasLocalPrefix: function (phone) {
 			return phone.length >= 9 && phone[0] == '8'
-		},
-		hasBadCountryCode: function (phone) {
-			return false
 		}
 	},
 	lv: {
@@ -151,9 +115,6 @@ var countries = {
 		localCodeLength: 3,
 		phoneLength: 5,
 		hasLocalPrefix: function (phone) {
-			return false
-		},
-		hasBadCountryCode: function (phone) {
 			return false
 		}
 	},
@@ -164,9 +125,6 @@ var countries = {
 		phoneLength: 7,
 		hasLocalPrefix: function (phone) {
 			return phone.length >= 10 && phone[0] == '0'
-		},
-		hasBadCountryCode: function (phone) {
-			return false
 		}
 	},
 	gr: {
@@ -175,9 +133,6 @@ var countries = {
 		localCodeLength: 3,
 		phoneLength: 7,
 		hasLocalPrefix: function (phone) {
-			return false
-		},
-		hasBadCountryCode: function (phone) {
 			return false
 		}
 	},
@@ -188,9 +143,6 @@ var countries = {
 		phoneLength: 6,
 		hasLocalPrefix: function (phone) {
 			return false
-		},
-		hasBadCountryCode: function (phone) {
-			return false
 		}
 	},
 	es: {
@@ -199,9 +151,6 @@ var countries = {
 		localCodeLength: 3,
 		phoneLength: 6,
 		hasLocalPrefix: function (phone) {
-			return false
-		},
-		hasBadCountryCode: function (phone) {
 			return false
 		}
 	},
@@ -212,9 +161,6 @@ var countries = {
 		phoneLength: 6,
 		hasLocalPrefix: function (phone) {
 			return false
-		},
-		hasBadCountryCode: function (phone) {
-			return false
 		}
 	},
 	it: {
@@ -223,9 +169,6 @@ var countries = {
 		localCodeLength: 3,
 		phoneLength: 7,
 		hasLocalPrefix: function (phone) {
-			return false
-		},
-		hasBadCountryCode: function (phone) {
 			return false
 		}
 	},
@@ -236,10 +179,7 @@ var countries = {
 		phoneLength: 7,
 		hasLocalPrefix: function (phone) {
 			return phone.length > 10 && phone[0] == '0'
-		},
-		hasBadCountryCode: function (phone) {
-			return phone.length > 10 && ( phone[0] == '0' && phone[1] == '6' )
-		} 
+		}
 	},
 	de: {
 		countryCode: '+49',
@@ -247,9 +187,6 @@ var countries = {
 		localCodeLength: 3,
 		phoneLength: 8,
 		hasLocalPrefix: function (phone) {
-			return false
-		},
-		hasBadCountryCode: function (phone) {
 			return false
 		}
 	},
@@ -260,9 +197,6 @@ var countries = {
 		phoneLength: 6,
 		hasLocalPrefix: function (phone) {
 			return phone.length >= 10 && phone[0] == '0'
-		},
-		hasBadCountryCode: function (phone) {
-			return false
 		}
 	}
 }
@@ -347,6 +281,13 @@ var fixItPhone = fixPhoneBuilder(10, 13, 'it');
 var fixFrPhone = fixPhoneBuilder(9, 12, 'fr');
 var fixHuPhone = function (phone) {
 	var localCode = getLocalCode('hu', phone)
+	var config = countries['hu']
+	var prefix = config.countryCode
+	phone = phone.replace(/^00/g, '')
+	
+	if (phone.length > 10 && (phone[0] == '0' && phone[1] == '6')) {
+		phone = phone.slice(prefix.length - 1)
+	}
 	return localCode.length > 1
 		? fixHuLongPhone(phone)
 		: fixHuShortPhone(phone)
@@ -400,16 +341,11 @@ var fixHuLongPhone = fixPhoneBuilder(9, 12, 'hu');
 function fixPhoneBuilder (minLength, maxLength, cc) {
 	return function (phone) {
 		phone = phone.replace(/[^\d\+]/g, '');
-		phone = phone.replace(/^00/g, '')
 		if (phone.length < minLength || phone.length > maxLength) {
 			return null;
 		}
 		var config = countries[cc]
 		var prefix = config.countryCode
-
-		if (config.hasBadCountryCode(phone)){
-			phone = phone.slice(prefix.length - 1)
-		}
 
 		if (config.hasLocalPrefix(phone)) {
 			phone = prefix + phone.slice(1);
