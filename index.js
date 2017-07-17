@@ -284,9 +284,9 @@ var fixHuPhone = function (phone) {
 	var config = countries['hu']
 	var prefix = config.countryCode
 	phone = phone.replace(/^00/g, '')
-	
+
 	if (phone.length > 10 && (phone[0] == '0' && phone[1] == '6')) {
-		phone = phone.slice(prefix.length - 1)
+		phone = phone.slice(2)
 	}
 	return localCode.length > 1
 		? fixHuLongPhone(phone)
