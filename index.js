@@ -178,7 +178,7 @@ var countries = {
 		localCodeLength: 2,
 		phoneLength: 7,
 		hasLocalPrefix: function (phone) {
-			return false
+			return phone.length > 10 && phone[0] == '0'
 		}
 	},
 	de: {
@@ -281,6 +281,13 @@ var fixItPhone = fixPhoneBuilder(10, 13, 'it');
 var fixFrPhone = fixPhoneBuilder(9, 12, 'fr');
 var fixHuPhone = function (phone) {
 	var localCode = getLocalCode('hu', phone)
+	var config = countries['hu']
+	var prefix = config.countryCode
+	phone = phone.replace(/^00/g, '')
+
+	if (phone.length > 10 && (phone[0] == '0' && phone[1] == '6')) {
+		phone = phone.slice(2)
+	}
 	return localCode.length > 1
 		? fixHuLongPhone(phone)
 		: fixHuShortPhone(phone)
@@ -339,6 +346,7 @@ function fixPhoneBuilder (minLength, maxLength, cc) {
 		}
 		var config = countries[cc]
 		var prefix = config.countryCode
+
 		if (config.hasLocalPrefix(phone)) {
 			phone = prefix + phone.slice(1);
 		}
