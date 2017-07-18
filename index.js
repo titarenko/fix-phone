@@ -280,14 +280,12 @@ var fixPtPhone = fixPhoneBuilder(9, 13, 'pt');
 var fixItPhone = fixPhoneBuilder(10, 13, 'it');
 var fixFrPhone = fixPhoneBuilder(9, 12, 'fr');
 var fixHuPhone = function (phone) {
-	var localCode = getLocalCode('hu', phone)
-	var config = countries['hu']
-	var prefix = config.countryCode
 	phone = phone.replace(/^00/g, '')
-
-	if (phone.length > 10 && (phone[0] == '0' && phone[1] == '6')) {
+	
+	if (phone.length > 9 && (phone[0] == '0' && phone[1] == '6')) {
 		phone = phone.slice(2)
 	}
+	var localCode = getLocalCode('hu', phone)
 	return localCode.length > 1
 		? fixHuLongPhone(phone)
 		: fixHuShortPhone(phone)
