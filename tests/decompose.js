@@ -290,6 +290,14 @@ describe('fix-phone', function () {
 				phone: '123456'
 			});
 		});
-		
+
+		it('should decompose vn phones', function () {
+			decompose('vn', '+84121234567').should.eql({
+				country: '+84',
+				local: '12',
+				phone: '1234567'
+			});
+		});
+
 	});
 });
