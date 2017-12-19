@@ -298,6 +298,13 @@ describe('fix-phone', function () {
 				phone: '1234567'
 			});
 		});
-
+		
+		it('should decompose sk mobile phones', function () {
+			decompose('sk', '+421915555555').should.eql({
+				country: '+421',
+				local: '915',
+				phone: '555555'
+			});
+		});
 	});
 });
