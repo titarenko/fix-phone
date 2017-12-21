@@ -211,8 +211,8 @@ var countries = {
 	sk: {
 		countryCode: '+421',
 		countryLocalPrefix: '',
-		localCodeLength: 3,
-		phoneLength: 6,
+		localCodeLength: 2,
+		phoneLength: 7,
 		hasLocalPrefix: function (phone) {
 			return phone.length >= 10 && phone[0] == '0'
 		}
