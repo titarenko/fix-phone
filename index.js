@@ -86,7 +86,7 @@ var countries = {
 		countryCode: '+385',
 		countryLocalPrefix: '',
 		localCodeLength: 3,
-		phoneLength: 6,
+		phoneLength: getHrPhoneNumberLength,
 		isPhoneHasDifferentLength: true,
 		hasLocalPrefix: function (phone) {
 			return phone.length >= 9 && phone[0] == '0'
@@ -229,11 +229,11 @@ function decompose (cc, phone) {
 		return null;
 	}
 	var config = countries[cc]
-	var phoneNumberLength = config.isPhoneHasDifferentLength ? getPhoneNumberLength(cc, phone) : config.phoneLength
+	var phoneLength = _.isFunction(config.phoneLength) ? config.phoneLength(cc, phone) :  config.phoneLength
 	return {
 		country: config.countryCode,
-		local: config.countryLocalPrefix + fixed.slice(config.countryCode.length, -phoneNumberLength),
-		phone: fixed.slice(-phoneNumberLength)
+		local: config.countryLocalPrefix + fixed.slice(config.countryCode.length, -phoneLength),
+		phone: fixed.slice(-phoneLength)
 	};
 }
 
@@ -284,7 +284,7 @@ function getLocalCode (cc, phone) {
 
 	return phoneWithoutLocalPrefix.slice(0, -config.phoneLength)
 }
-function getPhoneNumberLength (cc, phone) {
+function getHrPhoneNumberLength (cc, phone) {
 	phone = getSanitizedPhone(phone)
 	var config = countries[cc]
 	var countryCodeWithoutPlus = config.countryCode.slice(1)
@@ -348,7 +348,7 @@ var fixEePhone = function (phone) {
 		: fixEePhoneWithOneNumberInLocalCode(phone)
 }
 var fixHrPhone = function (phone) {
-	var phoneNumberLength = getPhoneNumberLength('hr', phone)
+	var phoneNumberLength = getHrPhoneNumberLength('hr', phone)
 
 	return phoneNumberLength > 5
 		? fixHrPhoneWithSixNumberInPhoneNumber(phone)
