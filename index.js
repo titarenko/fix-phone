@@ -85,8 +85,10 @@ var countries = {
 	hr: {
 		countryCode: '+385',
 		countryLocalPrefix: '',
-		localCodeLength: 1,
-		phoneLength: 7,
+		localCodeLength: 3,
+		phoneLength: function (phone) {
+			return _.size(phone) - 3 - 4
+		},
 		hasLocalPrefix: function (phone) {
 			return phone.length >= 9 && phone[0] == '0'
 		}
@@ -228,10 +230,11 @@ function decompose (cc, phone) {
 		return null;
 	}
 	var config = countries[cc]
+	var phoneLength = _.isFunction(config.phoneLength) ? config.phoneLength(fixed) :  config.phoneLength
 	return {
 		country: config.countryCode,
-		local: config.countryLocalPrefix + fixed.slice(config.countryCode.length, -config.phoneLength),
-		phone: fixed.slice(-config.phoneLength)
+		local: config.countryLocalPrefix + fixed.slice(config.countryCode.length, -phoneLength),
+		phone: fixed.slice(-phoneLength)
 	};
 }
 
@@ -332,10 +335,8 @@ var fixEePhone = function (phone) {
 		: fixEePhoneWithOneNumberInLocalCode(phone)
 }
 var fixHrPhone = function (phone) {
-	var localCode = getLocalCode('hr', phone)
-	return localCode.length > 1
-		? fixHrPhoneWithTwoNumberInLocalCode(phone)
-		: fixHrPhoneWithOneNumberInLocalCode(phone)
+	return fixHrPhoneWithSixNumberInPhoneNumber(phone)
+		|| fixHrPhoneWithFiveNumberInPhoneNumber(phone)
 }
 var fixThPhone = function (phone) {
 	var localCode = getLocalCode('th', phone)
@@ -358,8 +359,8 @@ var fixThMobilePhone = fixPhoneBuilder(8, 12, 'th');
 var fixThCityPhone = fixPhoneBuilder(8, 11, 'th');
 var fixEePhoneWithOneNumberInLocalCode = fixPhoneBuilder(7, 11, 'ee');
 var fixEePhoneWithTwoNumberInLocalCode = fixPhoneBuilder(8, 12, 'ee');
-var fixHrPhoneWithOneNumberInLocalCode = fixPhoneBuilder(8, 12, 'hr');
-var fixHrPhoneWithTwoNumberInLocalCode = fixPhoneBuilder(9, 13, 'hr');
+var fixHrPhoneWithFiveNumberInPhoneNumber = fixPhoneBuilder(8, 12, 'hr');
+var fixHrPhoneWithSixNumberInPhoneNumber = fixPhoneBuilder(9, 13, 'hr');
 var fixBgCityPhone = fixPhoneBuilder(8, 12, 'bg');
 var fixBgPhoneMobile = fixPhoneBuilder(9, 13, 'bg');
 var fixDeShortPhone = fixPhoneBuilder(9, 13, 'de');
