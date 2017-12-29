@@ -367,7 +367,7 @@ var fixVnLongPhone = fixPhoneBuilder(9, 12, 'vn');
 
 function fixPhoneBuilder (minLength, maxLength, cc) {
 	return function (phone) {
-		phone = phone.replace(/[^\d\+]/g, '');
+		phone = getSanitizedPhone(phone)
 		if (phone.length < minLength || phone.length > maxLength) {
 			return null;
 		}
@@ -385,4 +385,13 @@ function fixPhoneBuilder (minLength, maxLength, cc) {
 		}
 		return phone;
 	};
+}
+function getSanitizedPhone (phone) {
+	var isPhoneHasPlus = phone[0] === '+'
+	var phoneWithoutPlus = isPhoneHasPlus ? phone.slice(1) : phone
+	var sanitizedPhone = phoneWithoutPlus.replace(/[^\d]/g, '')
+
+	return isPhoneHasPlus
+		? ['+', sanitizedPhone].join('')
+		: sanitizedPhone
 }
