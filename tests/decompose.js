@@ -101,26 +101,26 @@ describe('fix-phone', function () {
 		});
 		
 		it('should decompose hr phones', function () {
-			decompose('hr', '+38597123456').should.eql({
+			decompose('hr', '+385434123456').should.eql({
 				country: '+385',
-				local: '9',
-				phone: '7123456'
+				local: '434',
+				phone: '123456'
+			});
+		});
+
+		it('should decompose hr short phones', function () {
+			decompose('hr', '+38521212345').should.eql({
+				country: '+385',
+				local: '212',
+				phone: '12345'
 			});
 		});
 		
 		it('should decompose hr short phones', function () {
-			decompose('hr', '010123456').should.eql({
+			decompose('hr', '021212345').should.eql({
 				country: '+385',
-				local: '1',
-				phone: '0123456'
-			});
-		});
-		
-		it('should decompose hr mobile phones', function () {
-			decompose('hr', '+385911234567').should.eql({
-				country: '+385',
-				local: '91',
-				phone: '1234567'
+				local: '212',
+				phone: '12345'
 			});
 		});
 		
