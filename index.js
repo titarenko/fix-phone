@@ -284,7 +284,10 @@ function getLocalCode (cc, phone) {
 }
 
 var fixUaPhone = fixPhoneBuilder(9, 13, 'ua');
-var fixRuPhone = fixPhoneBuilder(10, 12, 'ru');
+var fixRuPhone = function (phone) {
+	phone = phone[0] === '+' && phone[1] === '8' ? phone.slice(1) : phone
+	return fixRuPhoneWithCorrectNumber(phone)
+}
 var fixKzPhone = fixPhoneBuilder(10, 12, 'kz');
 var fixRoPhone = fixPhoneBuilder(9, 12, 'ro');
 var fixLvPhone = fixPhoneBuilder(8, 12, 'lv');
@@ -349,6 +352,7 @@ var fixVnPhone = function (phone) {
 		? fixVnLongPhone(phone)
 		: fixVnShortPhone(phone)
 }
+var fixRuPhoneWithCorrectNumber = fixPhoneBuilder(10, 12, 'ru');
 var fixSkPhone = fixPhoneBuilder(9, 13, 'sk');
 var fixThMobilePhone = fixPhoneBuilder(8, 12, 'th');
 var fixThCityPhone = fixPhoneBuilder(8, 11, 'th');
@@ -367,7 +371,7 @@ var fixVnLongPhone = fixPhoneBuilder(9, 12, 'vn');
 
 function fixPhoneBuilder (minLength, maxLength, cc) {
 	return function (phone) {
-		phone = phone.replace(/[^\d\+]/g, '');
+		phone = getSanitizedPhone(phone)
 		if (phone.length < minLength || phone.length > maxLength) {
 			return null;
 		}
@@ -385,4 +389,11 @@ function fixPhoneBuilder (minLength, maxLength, cc) {
 		}
 		return phone;
 	};
+}
+function getSanitizedPhone (phone) {
+	var hasPlus = phone[0] === '+'
+	var phoneWithoutPlus = hasPlus ? phone.slice(1) : phone
+	var sanitizedPhone = phoneWithoutPlus.replace(/[^\d]/g, '')
+
+	return hasPlus ? '+' + sanitizedPhone : sanitizedPhone
 }
