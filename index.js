@@ -304,11 +304,12 @@ var fixCyPhone = fixPhoneBuilder(8, 12, 'cy');
 var fixEsPhone = fixPhoneBuilder(9, 12, 'es');
 var fixPtPhone = fixPhoneBuilder(9, 13, 'pt');
 var fixItPhone = fixPhoneBuilder(10, 13, 'it');
+var fixFrPhoneBase = fixPhoneBuilder(9, 12, 'fr');
 
 var fixFrPhone = function (phone) {
   phone = getSanitizedPhone(phone)
   phone = phone.replace(/^(\+330)|(330)|(\+0)/, '+33')
-  return fixPhoneBuilder(9, 12, 'fr')(phone)
+  return fixFrPhoneBase(phone)
 }
 
 var fixHuPhone = function (phone) {
