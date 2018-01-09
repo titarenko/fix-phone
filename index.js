@@ -291,6 +291,9 @@ var fixRuPhone = function (phone) {
 	phone = phone[0] === '+' && phone[1] === '8' ? phone.slice(1) : phone
 	return fixRuPhoneWithCorrectNumber(phone)
 }
+
+var fixFrPhoneBase = fixPhoneBuilder(9, 12, 'fr');
+
 var fixKzPhone = fixPhoneBuilder(10, 12, 'kz');
 var fixRoPhone = fixPhoneBuilder(9, 12, 'ro');
 var fixLvPhone = fixPhoneBuilder(8, 12, 'lv');
@@ -304,8 +307,6 @@ var fixCyPhone = fixPhoneBuilder(8, 12, 'cy');
 var fixEsPhone = fixPhoneBuilder(9, 12, 'es');
 var fixPtPhone = fixPhoneBuilder(9, 13, 'pt');
 var fixItPhone = fixPhoneBuilder(10, 13, 'it');
-var fixFrPhoneBase = fixPhoneBuilder(9, 12, 'fr');
-
 var fixFrPhone = function (phone) {
   phone = getSanitizedPhone(phone)
   phone = phone.replace(/^(\+330)|(330)|(\+0)/, '+33')
