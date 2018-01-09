@@ -426,6 +426,7 @@ var fixEsPhone = function (phone) {
 	}
 	return fixEsPhoneBuilder(phone)
 }
+
 var fixHuPhone = function (phone) {
 	phone = getSanitizedPhone(phone)
 	if(phone.length === 9) {
