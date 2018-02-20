@@ -218,6 +218,15 @@ var countries = {
 		hasLocalPrefix: function (phone) {
 			return phone.length >= 10 && phone[0] == '0'
 		}
+	},
+	sgp: {
+    countryCode: '+65',
+    countryLocalPrefix: '',
+    localCodeLength: 2,
+    phoneLength: 7,
+    hasLocalPrefix: function (phone) {
+      return phone.length >= 10 && phone[0] == '0'
+    }
 	}
 }
 
@@ -264,6 +273,7 @@ function fixPhone (cc, phone) {
 		case 'fr': return fixFrPhone(phone);
 		case 'vn': return fixVnPhone(phone);
 		case 'sk': return fixSkPhone(phone);
+		case 'sgp': return fixSgpPhone(phone);
 		default: return null;
 	}
 }
@@ -363,6 +373,7 @@ var fixVnPhone = function (phone) {
 }
 var fixRuPhoneWithCorrectNumber = fixPhoneBuilder(10, 12, 'ru');
 var fixSkPhone = fixPhoneBuilder(9, 13, 'sk');
+var fixSgpPhone = fixPhoneBuilder(1, 14, 'sgp');
 var fixThMobilePhone = fixPhoneBuilder(8, 12, 'th');
 var fixThCityPhone = fixPhoneBuilder(8, 11, 'th');
 var fixEePhoneWithOneNumberInLocalCode = fixPhoneBuilder(7, 11, 'ee');
