@@ -218,7 +218,16 @@ var countries = {
 		hasLocalPrefix: function (phone) {
 			return phone.length >= 10 && phone[0] == '0'
 		}
-	}
+	},
+  sgp: {
+    countryCode: '+65',
+    countryLocalPrefix: '',
+    localCodeLength: 2,
+    phoneLength: 7,
+    hasLocalPrefix: function (phone) {
+      return phone.length >= 10 && phone[0] == '0'
+    }
+  }
 }
 
 module.exports = fixPhone;
@@ -264,6 +273,7 @@ function fixPhone (cc, phone) {
 		case 'fr': return fixFrPhone(phone);
 		case 'vn': return fixVnPhone(phone);
 		case 'sk': return fixSkPhone(phone);
+    case 'sgp': return fixSgpPhone(phone);
 		default: return null;
 	}
 }
@@ -305,6 +315,7 @@ var fixEsPhone = fixPhoneBuilder(9, 12, 'es');
 var fixPtPhone = fixPhoneBuilder(9, 13, 'pt');
 var fixItPhone = fixPhoneBuilder(10, 13, 'it');
 var fixFrPhone = fixPhoneBuilder(9, 12, 'fr');
+var fixSgpPhone = fixPhoneBuilder(1, 14, 'sgp');
 var fixHuPhone = function (phone) {
 	phone = phone.replace(/^00/g, '')
 	
