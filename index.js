@@ -219,7 +219,7 @@ var countries = {
 			return phone.length >= 10 && phone[0] == '0'
 		}
 	},
-  sgp: {
+  sg: {
     countryCode: '+65',
     countryLocalPrefix: '',
     localCodeLength: 2,
@@ -273,7 +273,7 @@ function fixPhone (cc, phone) {
 		case 'fr': return fixFrPhone(phone);
 		case 'vn': return fixVnPhone(phone);
 		case 'sk': return fixSkPhone(phone);
-    case 'sgp': return fixSgpPhone(phone);
+    case 'sg': return fixSgpPhone(phone);
 		default: return null;
 	}
 }

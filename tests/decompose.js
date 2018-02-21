@@ -308,7 +308,7 @@ describe('fix-phone', function () {
 		});
 
     it('should decompose sgp mobile phones', function () {
-      decompose('sgp', '+6520123456').should.eql({
+      decompose('sg', '+6520123456').should.eql({
         country: '+65',
         local: '20',
         phone: '123456'
