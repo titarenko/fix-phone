@@ -273,7 +273,7 @@ function fixPhone (cc, phone) {
 		case 'fr': return fixFrPhone(phone);
 		case 'vn': return fixVnPhone(phone);
 		case 'sk': return fixSkPhone(phone);
-    case 'sg': return fixSgPhone(phone);
+		case 'sg': return fixSgPhone(phone);
 		default: return null;
 	}
 }
