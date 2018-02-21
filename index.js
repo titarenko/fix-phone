@@ -301,6 +301,9 @@ var fixRuPhone = function (phone) {
 	phone = phone[0] === '+' && phone[1] === '8' ? phone.slice(1) : phone
 	return fixRuPhoneWithCorrectNumber(phone)
 }
+
+var fixFrPhoneBase = fixPhoneBuilder(9, 12, 'fr');
+
 var fixKzPhone = fixPhoneBuilder(10, 12, 'kz');
 var fixRoPhone = fixPhoneBuilder(9, 12, 'ro');
 var fixLvPhone = fixPhoneBuilder(8, 12, 'lv');
@@ -314,8 +317,12 @@ var fixCyPhone = fixPhoneBuilder(8, 12, 'cy');
 var fixEsPhone = fixPhoneBuilder(9, 12, 'es');
 var fixPtPhone = fixPhoneBuilder(9, 13, 'pt');
 var fixItPhone = fixPhoneBuilder(10, 13, 'it');
-var fixFrPhone = fixPhoneBuilder(9, 12, 'fr');
 var fixSgpPhone = fixPhoneBuilder(8, 11, 'sg');
+var fixFrPhone = function (phone) {
+  phone = getSanitizedPhone(phone)
+  phone = phone.replace(/^(\+330)|(330)|(\+0)/, '+33')
+  return fixFrPhoneBase(phone)
+}
 var fixHuPhone = function (phone) {
 	phone = phone.replace(/^00/g, '')
 	
@@ -393,7 +400,6 @@ function fixPhoneBuilder (minLength, maxLength, cc) {
 		if (config.hasLocalPrefix(phone)) {
 			phone = prefix + phone.slice(1);
 		}
-		
 		var offset = maxLength - phone.length;
 		phone = prefix.slice(0, offset) + phone;
 		if (phone.slice(0, prefix.length) != prefix) {
@@ -406,6 +412,5 @@ function getSanitizedPhone (phone) {
 	var hasPlus = phone[0] === '+'
 	var phoneWithoutPlus = hasPlus ? phone.slice(1) : phone
 	var sanitizedPhone = phoneWithoutPlus.replace(/[^\d]/g, '')
-
 	return hasPlus ? '+' + sanitizedPhone : sanitizedPhone
 }
