@@ -219,15 +219,15 @@ var countries = {
 			return phone.length >= 10 && phone[0] == '0'
 		}
 	},
-  sg: {
-    countryCode: '+65',
-    countryLocalPrefix: '',
-    localCodeLength: 2,
-    phoneLength: 6,
-    hasLocalPrefix: function (phone) {
-      return phone.length >= 10 && phone[0] == '0'
-    }
-  }
+	sg: {
+		countryCode: '+65',
+		countryLocalPrefix: '',
+		localCodeLength: 2,
+		phoneLength: 6,
+		hasLocalPrefix: function (phone) {
+			return phone.length >= 10 && phone[0] == '0'
+		}
+	}
 }
 
 module.exports = fixPhone;
@@ -273,7 +273,7 @@ function fixPhone (cc, phone) {
 		case 'fr': return fixFrPhone(phone);
 		case 'vn': return fixVnPhone(phone);
 		case 'sk': return fixSkPhone(phone);
-    case 'sg': return fixSgpPhone(phone);
+    case 'sg': return fixSgPhone(phone);
 		default: return null;
 	}
 }
@@ -317,7 +317,7 @@ var fixCyPhone = fixPhoneBuilder(8, 12, 'cy');
 var fixEsPhone = fixPhoneBuilder(9, 12, 'es');
 var fixPtPhone = fixPhoneBuilder(9, 13, 'pt');
 var fixItPhone = fixPhoneBuilder(10, 13, 'it');
-var fixSgpPhone = fixPhoneBuilder(8, 11, 'sg');
+var fixSgPhone = fixPhoneBuilder(8, 11, 'sg');
 var fixFrPhone = function (phone) {
   phone = getSanitizedPhone(phone)
   phone = phone.replace(/^(\+330)|(330)|(\+0)/, '+33')
