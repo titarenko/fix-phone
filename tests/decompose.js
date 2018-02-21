@@ -307,12 +307,12 @@ describe('fix-phone', function () {
 			});
 		});
 
-    it('should decompose sg mobile phones', function () {
-      decompose('sg', '+6520123456').should.eql({
-        country: '+65',
-        local: '20',
-        phone: '123456'
-      });
-    });
+		it('should decompose sg mobile phones', function () {
+			decompose('sg', '+6520123456').should.eql({
+				country: '+65',
+				local: '20',
+				phone: '123456'
+			});
+		});
 	});
 });
