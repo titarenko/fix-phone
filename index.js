@@ -315,7 +315,7 @@ var fixEsPhone = fixPhoneBuilder(9, 12, 'es');
 var fixPtPhone = fixPhoneBuilder(9, 13, 'pt');
 var fixItPhone = fixPhoneBuilder(10, 13, 'it');
 var fixFrPhone = fixPhoneBuilder(9, 12, 'fr');
-var fixSgpPhone = fixPhoneBuilder(8, 11, 'sgp');
+var fixSgpPhone = fixPhoneBuilder(8, 11, 'sg');
 var fixHuPhone = function (phone) {
 	phone = phone.replace(/^00/g, '')
 	
