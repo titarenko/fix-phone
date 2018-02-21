@@ -67,7 +67,7 @@ describe('fix-phone', function () {
 				phone: '12345'
 			});
 		});
-		
+
 		it('should decompose lt phones', function () {
 			decompose('lt', '+37060123456').should.eql({
 				country: '+370',
@@ -75,7 +75,7 @@ describe('fix-phone', function () {
 				phone: '123456'
 			});
 		});
-		
+
 		it('should decompose lt phones', function () {
 			decompose('lt', '852123456').should.eql({
 				country: '+370',
@@ -83,7 +83,7 @@ describe('fix-phone', function () {
 				phone: '123456'
 			});
 		});
-		
+
 		it('should decompose ee phones', function () {
 			decompose('ee', '+3725012345').should.eql({
 				country: '+372',
@@ -91,7 +91,7 @@ describe('fix-phone', function () {
 				phone: '012345'
 			});
 		});
-		
+
 		it('should decompose ee mobile phones', function () {
 			decompose('ee', '+37251123456').should.eql({
 				country: '+372',
@@ -99,7 +99,7 @@ describe('fix-phone', function () {
 				phone: '123456'
 			});
 		});
-		
+
 		it('should decompose hr phones', function () {
 			decompose('hr', '+385434123456').should.eql({
 				country: '+385',
@@ -115,7 +115,7 @@ describe('fix-phone', function () {
 				phone: '12345'
 			});
 		});
-		
+
 		it('should decompose hr short phones', function () {
 			decompose('hr', '021212345').should.eql({
 				country: '+385',
@@ -123,7 +123,7 @@ describe('fix-phone', function () {
 				phone: '12345'
 			});
 		});
-		
+
 		it('should decompose cz phones', function () {
 			decompose('cz', '+420201234567').should.eql({
 				country: '+420',
@@ -131,7 +131,7 @@ describe('fix-phone', function () {
 				phone: '1234567'
 			});
 		});
-		
+
 		it('should decompose si phones', function () {
 			decompose('si', '+38611234567').should.eql({
 				country: '+386',
@@ -139,7 +139,7 @@ describe('fix-phone', function () {
 				phone: '1234567'
 			});
 		});
-		
+
 		it('should decompose si short phones', function () {
 			decompose('si', '011234567').should.eql({
 				country: '+386',
@@ -147,7 +147,7 @@ describe('fix-phone', function () {
 				phone: '1234567'
 			});
 		});
-		
+
 		it('should decompose pl phones', function () {
 			decompose('pl', '+48221234567').should.eql({
 				country: '+48',
@@ -155,7 +155,7 @@ describe('fix-phone', function () {
 				phone: '234567'
 			});
 		});
-		
+
 		it('should decompose pl short phones', function () {
 			decompose('pl', '0221234567').should.eql({
 				country: '+48',
@@ -163,7 +163,7 @@ describe('fix-phone', function () {
 				phone: '234567'
 			});
 		});
-		
+
 		it('should decompose bg phones', function () {
 			decompose('bg', '+35921123456').should.eql({
 				country: '+359',
@@ -298,12 +298,20 @@ describe('fix-phone', function () {
 				phone: '1234567'
 			});
 		});
-		
+
 		it('should decompose sk mobile phones', function () {
 			decompose('sk', '+421915555555').should.eql({
 				country: '+421',
 				local: '91',
 				phone: '5555555'
+			});
+		});
+
+		it('should decompose sg mobile phones', function () {
+			decompose('sg', '+6520123456').should.eql({
+				country: '+65',
+				local: '20',
+				phone: '123456'
 			});
 		});
 	});
