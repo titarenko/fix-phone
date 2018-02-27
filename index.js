@@ -325,7 +325,7 @@ var fixFrPhone = function (phone) {
 }
 var fixHuPhone = function (phone) {
 	phone = phone.replace(/^00/g, '')
-	
+
 	if (phone.length > 9 && (phone[0] == '0' && phone[1] == '6')) {
 		phone = phone.slice(2)
 	}
@@ -335,10 +335,18 @@ var fixHuPhone = function (phone) {
 		: fixHuShortPhone(phone)
 }
 var fixDePhone = function (phone) {
+	phone = getSanitizedPhone(phone)
+	phone = phone.replace(/^(0+)|([()/])/, '')
+	phone = phone.replace(/^(\+490)|(490)/, '+49')
 	var localCode = getLocalCode('de', phone)
-	return localCode.length > 2
-		? fixDeLongPhone(phone)
-		: fixDeShortPhone(phone)
+
+	if(localCode.length > 3) {
+		return fixDe4DigLocalCodePhone(phone)
+	}
+	if(localCode.length > 2) {
+		return fixDeLongPhone(phone)
+	}
+	return fixDeShortPhone(phone)
 }
 var fixBgPhone = function (phone) {
 	var localCode = getLocalCode('bg', phone)
@@ -383,6 +391,7 @@ var fixBgCityPhone = fixPhoneBuilder(8, 12, 'bg');
 var fixBgPhoneMobile = fixPhoneBuilder(9, 13, 'bg');
 var fixDeShortPhone = fixPhoneBuilder(9, 13, 'de');
 var fixDeLongPhone = fixPhoneBuilder(10, 14, 'de');
+var fixDe4DigLocalCodePhone = fixPhoneBuilder(10, 15, 'de');
 var fixHuShortPhone = fixPhoneBuilder(8, 11, 'hu');
 var fixHuLongPhone = fixPhoneBuilder(9, 12, 'hu');
 var fixVnShortPhone = fixPhoneBuilder(8, 11, 'vn');
