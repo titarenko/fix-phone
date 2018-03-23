@@ -249,7 +249,7 @@ function decompose (cc, phone) {
 
 function fixPhone (cc, phone) {
 	switch (cc) {
-		case 'ru':	return fixRuPhone(phone);
+		case 'ru': return fixRuPhone(phone);
 		case 'ua':	return fixUaPhone(phone);
 		case 'kz':	return fixKzPhone(phone);
 		case 'ro':	return fixRoPhone(phone);
