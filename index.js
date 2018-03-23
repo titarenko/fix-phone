@@ -353,19 +353,20 @@ var fixItPhone = function (phone) {
 	return fixItPhoneBuilder(phone)
 }
 var fixRoPhone = function (phone) {
-	if (phone.startsWith('00') || phone.startsWith('400') && phone.length < 12) {
+	phone = getSanitizedPhone(phone)
+	var checkPattern = /^(00)|(400)/
+	if (checkPattern.test(phone) && phone.length < 12) {
 		return null
 	}
-
+	var checkShort = /^(400)|(0)|(\+400)/
+	if (!checkShort.test(phone) && phone.length < 10) {
+		return null
+	}
 	if (phone.startsWith('+400') && phone.length > 12) {
 		phone = phone.replace(/^(\+400)/, '+40')
 	}
 	if (phone.startsWith('400') && phone.length > 11) {
 		phone = phone.replace(/^(400)/, '40')
-	}
-	var pattern = /^(400)|(0)|(\+400)/
-	if (!pattern.test(phone) && phone.length < 10) {
-		return null
 	}
 	return fixRoPhoneLong(phone);
 }
