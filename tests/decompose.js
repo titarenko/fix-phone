@@ -61,10 +61,10 @@ describe('fix-phone', function () {
 			});
 		});
 		it('should decompose lv phones', function () {
-			decompose('lv', '+37120012345').should.eql({
+			decompose('lv', '+371200123456').should.eql({
 				country: '+371',
 				local: '200',
-				phone: '12345'
+				phone: '123456'
 			});
 		});
 
@@ -173,10 +173,10 @@ describe('fix-phone', function () {
 		});
 
 		it('should decompose bg short phones', function () {
-			decompose('bg', '010123456').should.eql({
+			decompose('bg', '0123456789').should.eql({
 				country: '+359',
-				local: '1',
-				phone: '0123456'
+				local: '12',
+				phone: '3456789'
 			});
 		});
 
