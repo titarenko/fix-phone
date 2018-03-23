@@ -375,7 +375,6 @@ var fixPtPhone = function (phone) {
 	}
 	return fixPtPhoneBuilder(phone)
 }
-
 var fixFrPhone = function (phone) {
 	phone = getSanitizedPhone(phone)
 	if (phone.startsWith('00')) {
