@@ -239,7 +239,7 @@ function decompose (cc, phone) {
 		return null;
 	}
 	var config = countries[cc]
-	var phoneLength = _.isFunction(config.phoneLength) ? config.phoneLength(fixed) :  config.phoneLength
+	var phoneLength = _.isFunction(config.phoneLength) ? config.phoneLength(fixed) : config.phoneLength
 	return {
 		country: config.countryCode,
 		local: config.countryLocalPrefix + fixed.slice(config.countryCode.length, -phoneLength),
@@ -249,32 +249,58 @@ function decompose (cc, phone) {
 
 function fixPhone (cc, phone) {
 	switch (cc) {
-		case 'ru': return fixRuPhone(phone);
-		case 'ua': return fixUaPhone(phone);
-		case 'kz': return fixKzPhone(phone);
-		case 'ro': return fixRoPhone(phone);
-		case 'th': return fixThPhone(phone);
-		case 'lv': return fixLvPhone(phone);
-		case 'lt': return fixLtPhone(phone);
-		case 'pl': return fixPlPhone(phone);
-		case 'ee': return fixEePhone(phone);
-		case 'hr': return fixHrPhone(phone);
-		case 'cz': return fixCzPhone(phone);
-		case 'si': return fixSiPhone(phone);
-		case 'bg': return fixBgPhone(phone);
-		case 'kg': return fixKgPhone(phone);
-		case 'gr': return fixGrPhone(phone);
-		case 'cy': return fixCyPhone(phone);
-		case 'es': return fixEsPhone(phone);
-		case 'pt': return fixPtPhone(phone);
-		case 'it': return fixItPhone(phone);
-		case 'hu': return fixHuPhone(phone);
-		case 'de': return fixDePhone(phone);
-		case 'fr': return fixFrPhone(phone);
-		case 'vn': return fixVnPhone(phone);
-		case 'sk': return fixSkPhone(phone);
-		case 'sg': return fixSgPhone(phone);
-		default: return null;
+		case 'ru':
+			return fixRuPhone(phone);
+		case 'ua':
+			return fixUaPhone(phone);
+		case 'kz':
+			return fixKzPhone(phone);
+		case 'ro':
+			return fixRoPhone(phone);
+		case 'th':
+			return fixThPhone(phone);
+		case 'lv':
+			return fixLvPhone(phone);
+		case 'lt':
+			return fixLtPhone(phone);
+		case 'pl':
+			return fixPlPhone(phone);
+		case 'ee':
+			return fixEePhone(phone);
+		case 'hr':
+			return fixHrPhone(phone);
+		case 'cz':
+			return fixCzPhone(phone);
+		case 'si':
+			return fixSiPhone(phone);
+		case 'bg':
+			return fixBgPhone(phone);
+		case 'kg':
+			return fixKgPhone(phone);
+		case 'gr':
+			return fixGrPhone(phone);
+		case 'cy':
+			return fixCyPhone(phone);
+		case 'es':
+			return fixEsPhone(phone);
+		case 'pt':
+			return fixPtPhone(phone);
+		case 'it':
+			return fixItPhone(phone);
+		case 'hu':
+			return fixHuPhone(phone);
+		case 'de':
+			return fixDePhone(phone);
+		case 'fr':
+			return fixFrPhone(phone);
+		case 'vn':
+			return fixVnPhone(phone);
+		case 'sk':
+			return fixSkPhone(phone);
+		case 'sg':
+			return fixSgPhone(phone);
+		default:
+			return null;
 	}
 }
 
@@ -302,10 +328,10 @@ var fixRuPhone = function (phone) {
 	return fixRuPhoneWithCorrectNumber(phone)
 }
 
-var fixFrPhoneBase = fixPhoneBuilder(9, 12, 'fr');
+var fixFrPhoneBuilder = fixPhoneBuilder(9, 12, 'fr');
 
 var fixKzPhone = fixPhoneBuilder(10, 12, 'kz');
-var fixRoPhone = fixPhoneBuilder(9, 12, 'ro');
+var fixRoPhoneLong = fixPhoneBuilder(9, 12, 'ro');
 var fixLvPhone = fixPhoneBuilder(8, 12, 'lv');
 var fixLtPhone = fixPhoneBuilder(8, 12, 'lt');
 var fixPlPhone = fixPhoneBuilder(9, 12, 'pl');
@@ -314,18 +340,64 @@ var fixSiPhone = fixPhoneBuilder(8, 12, 'si');
 var fixKgPhone = fixPhoneBuilder(9, 13, 'kg');
 var fixGrPhone = fixPhoneBuilder(10, 13, 'gr');
 var fixCyPhone = fixPhoneBuilder(8, 12, 'cy');
-var fixEsPhone = fixPhoneBuilder(9, 12, 'es');
-var fixPtPhone = fixPhoneBuilder(9, 13, 'pt');
-var fixItPhone = fixPhoneBuilder(10, 13, 'it');
+var fixEsPhoneBuilder = fixPhoneBuilder(9, 12, 'es');
+var fixPtPhoneBuilder = fixPhoneBuilder(9, 13, 'pt');
+var fixItPhoneBuilder = fixPhoneBuilder(10, 13, 'it');
 var fixSgPhone = fixPhoneBuilder(8, 11, 'sg');
+
+
+var fixItPhone = function (phone) {
+	if (phone.startsWith('0') && phone.length < 11) {
+		return null
+	}
+	return fixItPhoneBuilder(phone)
+}
+var fixRoPhone = function (phone) {
+	if (phone.startsWith('00') || phone.startsWith('400') && phone.length < 12) {
+		return null
+	}
+
+	if (phone.startsWith('+400') && phone.length > 12) {
+		phone = phone.replace(/^(\+400)/, '+40')
+	}
+	if (phone.startsWith('400') && phone.length > 11) {
+		phone = phone.replace(/^(400)/, '40')
+	}
+	var pattern = /^(400)|(0)|(\+400)/
+	if (!pattern.test(phone) && phone.length < 10) {
+		return null
+	}
+	return fixRoPhoneLong(phone);
+}
+var fixPtPhone = function (phone) {
+	if (phone.startsWith('3510') && phone.length < 13 || (phone.startsWith('0') && phone.length < 10)) {
+		return null
+	}
+	return fixPtPhoneBuilder(phone)
+}
+
 var fixFrPhone = function (phone) {
-  phone = getSanitizedPhone(phone)
-  phone = phone.replace(/^(\+330)|(330)|(\+0)/, '+33')
-  return fixFrPhoneBase(phone)
+	phone = getSanitizedPhone(phone)
+	if (phone.startsWith('00')) {
+		return null
+	}
+	var pattern = /^(330)|(0)|(\+331)/
+	if (!pattern.test(phone) && phone.length < 10) {
+		return null
+	}
+	if (!(phone.startsWith('+330') && phone.length < 13)) {
+		phone = phone.replace(/^(\+330)|(330)|(\+0)/, '+33')
+	}
+	return fixFrPhoneBuilder(phone)
+}
+var fixEsPhone = function (phone) {
+	if (phone.startsWith('0') && phone.length < 10 || phone.startsWith('340') && phone.length < 12) {
+		return null
+	}
+	return fixEsPhoneBuilder(phone)
 }
 var fixHuPhone = function (phone) {
 	phone = phone.replace(/^00/g, '')
-	
 	if (phone.length > 9 && (phone[0] == '0' && phone[1] == '6')) {
 		phone = phone.slice(2)
 	}
@@ -335,7 +407,23 @@ var fixHuPhone = function (phone) {
 		: fixHuShortPhone(phone)
 }
 var fixDePhone = function (phone) {
+	phone = getSanitizedPhone(phone)
+	if (phone.startsWith('00')) {
+		return null
+	}
+	if (phone.length < 10 && phone.startsWith('06')) {
+		phone = phone.replace(/^(0)/, '+49')
+	} else {
+		phone = phone.replace(/^(06)/, '+496')
+		phone = phone.replace(/^(02)/, '+492')
+	}
 	var localCode = getLocalCode('de', phone)
+	if (localCode.length < 2 && phone.length === 12) {
+		return fixDe12digit(phone)
+	}
+	if (localCode.length < 2 && phone.length === 11) {
+		return fixDe11digit(phone)
+	}
 	return localCode.length > 2
 		? fixDeLongPhone(phone)
 		: fixDeShortPhone(phone)
@@ -382,6 +470,8 @@ var fixHrPhoneWithSixNumberInPhoneNumber = fixPhoneBuilder(9, 13, 'hr');
 var fixBgCityPhone = fixPhoneBuilder(8, 12, 'bg');
 var fixBgPhoneMobile = fixPhoneBuilder(9, 13, 'bg');
 var fixDeShortPhone = fixPhoneBuilder(9, 13, 'de');
+var fixDe12digit = fixPhoneBuilder(9, 12, 'de');
+var fixDe11digit = fixPhoneBuilder(9, 11, 'de');
 var fixDeLongPhone = fixPhoneBuilder(10, 14, 'de');
 var fixHuShortPhone = fixPhoneBuilder(8, 11, 'hu');
 var fixHuLongPhone = fixPhoneBuilder(9, 12, 'hu');
@@ -396,11 +486,11 @@ function fixPhoneBuilder (minLength, maxLength, cc) {
 		}
 		var config = countries[cc]
 		var prefix = config.countryCode
-		
 		if (config.hasLocalPrefix(phone)) {
 			phone = prefix + phone.slice(1);
 		}
 		var offset = maxLength - phone.length;
+
 		phone = prefix.slice(0, offset) + phone;
 		if (phone.slice(0, prefix.length) != prefix) {
 			return null;
@@ -408,9 +498,14 @@ function fixPhoneBuilder (minLength, maxLength, cc) {
 		return phone;
 	};
 }
+
 function getSanitizedPhone (phone) {
 	var hasPlus = phone[0] === '+'
 	var phoneWithoutPlus = hasPlus ? phone.slice(1) : phone
 	var sanitizedPhone = phoneWithoutPlus.replace(/[^\d]/g, '')
 	return hasPlus ? '+' + sanitizedPhone : sanitizedPhone
+}
+
+function euvalidation (phone) {
+
 }
