@@ -318,7 +318,8 @@ var fixItPhoneBuilder = fixPhoneBuilder(10, 13, 'it');
 var fixSgPhone = fixPhoneBuilder(8, 11, 'sg');
 
 var fixItPhone = function (phone) {
-	if (phone.startsWith('0') && phone.length < 11) {
+
+	if (/^0/.test(phone) && phone.length < 11) {
 		return null
 	}
 	return fixItPhoneBuilder(phone)
@@ -333,36 +334,36 @@ var fixRoPhone = function (phone) {
 	if (!checkShort.test(phone) && phone.length < 10) {
 		return null
 	}
-	if (phone.startsWith('+400') && phone.length > 12) {
+	if (/^\+400/.test(phone) && phone.length > 12) {
 		phone = phone.replace(/^(\+400)/, '+40')
 	}
-	if (phone.startsWith('400') && phone.length > 11) {
+	if (/^400/.test(phone) && phone.length > 11) {
 		phone = phone.replace(/^(400)/, '40')
 	}
 	return fixRoPhoneBuilder(phone);
 }
 var fixPtPhone = function (phone) {
-	if (phone.startsWith('3510') && phone.length < 13 || (phone.startsWith('0') && phone.length < 10)) {
+	if (/^3510/.test(phone) && phone.length < 13 || (/^0/.test(phone) && phone.length < 10)) {
 		return null
 	}
 	return fixPtPhoneBuilder(phone)
 }
 var fixFrPhone = function (phone) {
 	phone = getSanitizedPhone(phone)
-	if (phone.startsWith('00')) {
+	if (/^00/.test(phone)) {
 		return null
 	}
 	var pattern = /^(330)|(0)|(\+331)/
 	if (!pattern.test(phone) && phone.length < 10) {
 		return null
 	}
-	if (!(phone.startsWith('+330') && phone.length < 13)) {
+	if (!(/^\+330/.test(phone) && phone.length < 13)) {
 		phone = phone.replace(/^(\+330)|(330)|(\+0)/, '+33')
 	}
 	return fixFrPhoneBuilder(phone)
 }
 var fixEsPhone = function (phone) {
-	if (phone.startsWith('0') && phone.length < 10 || phone.startsWith('340') && phone.length < 12) {
+	if (/^0/.test(phone) && phone.length < 10 || /^340/.test(phone) && phone.length < 12) {
 		return null
 	}
 	return fixEsPhoneBuilder(phone)
@@ -379,10 +380,10 @@ var fixHuPhone = function (phone) {
 }
 var fixDePhone = function (phone) {
 	phone = getSanitizedPhone(phone)
-	if (phone.startsWith('00')) {
+	if (/^00/.test(phone)) {
 		return null
 	}
-	if (phone.length < 10 && phone.startsWith('06')) {
+	if (phone.length < 10 && /^06/.test(phone)) {
 		phone = phone.replace(/^(0)/, '+49')
 	} else {
 		phone = phone.replace(/^(06)/, '+496')
