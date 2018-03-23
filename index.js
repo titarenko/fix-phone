@@ -301,9 +301,7 @@ var fixRuPhone = function (phone) {
 	phone = phone[0] === '+' && phone[1] === '8' ? phone.slice(1) : phone
 	return fixRuPhoneWithCorrectNumber(phone)
 }
-
 var fixFrPhoneBuilder = fixPhoneBuilder(9, 12, 'fr');
-
 var fixKzPhone = fixPhoneBuilder(10, 12, 'kz');
 var fixRoPhoneBuilder = fixPhoneBuilder(9, 12, 'ro');
 var fixLvPhone = fixPhoneBuilder(8, 12, 'lv');
