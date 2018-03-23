@@ -1,8 +1,4 @@
 module.exports = {
-	'+40700123123': '+40700123123',
-	'+41700890456': null,
-	'+407001234567': null,
-	'700123456': '+40700123456',
 	// international format
 	'+40999999999': '+40999999999',
 	'+40199999999': '+40199999999',
@@ -18,11 +14,11 @@ module.exports = {
 	'40999999999': '+40999999999',
 	'40199999999': '+40199999999',
 	'40099999999': null,
-	// // absense of plus and country code is not allowed
+	// absense of plus and country code is not allowed
 	'999999999': null,
-	// // invalid length
+	// invalid length
 	'+4008888888': null,
 	'+401999999999': null,
-	// // sanitization
+	// sanitization
 	'+ 4  +0 (/99+ 999 - 9999\юв)': '+40999999999',
 };
