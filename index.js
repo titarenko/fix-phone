@@ -249,58 +249,32 @@ function decompose (cc, phone) {
 
 function fixPhone (cc, phone) {
 	switch (cc) {
-		case 'ru':
-			return fixRuPhone(phone);
-		case 'ua':
-			return fixUaPhone(phone);
-		case 'kz':
-			return fixKzPhone(phone);
-		case 'ro':
-			return fixRoPhone(phone);
-		case 'th':
-			return fixThPhone(phone);
-		case 'lv':
-			return fixLvPhone(phone);
-		case 'lt':
-			return fixLtPhone(phone);
-		case 'pl':
-			return fixPlPhone(phone);
-		case 'ee':
-			return fixEePhone(phone);
-		case 'hr':
-			return fixHrPhone(phone);
-		case 'cz':
-			return fixCzPhone(phone);
-		case 'si':
-			return fixSiPhone(phone);
-		case 'bg':
-			return fixBgPhone(phone);
-		case 'kg':
-			return fixKgPhone(phone);
-		case 'gr':
-			return fixGrPhone(phone);
-		case 'cy':
-			return fixCyPhone(phone);
-		case 'es':
-			return fixEsPhone(phone);
-		case 'pt':
-			return fixPtPhone(phone);
-		case 'it':
-			return fixItPhone(phone);
-		case 'hu':
-			return fixHuPhone(phone);
-		case 'de':
-			return fixDePhone(phone);
-		case 'fr':
-			return fixFrPhone(phone);
-		case 'vn':
-			return fixVnPhone(phone);
-		case 'sk':
-			return fixSkPhone(phone);
-		case 'sg':
-			return fixSgPhone(phone);
-		default:
-			return null;
+		case 'ru':	return fixRuPhone(phone);
+		case 'ua':	return fixUaPhone(phone);
+		case 'kz':	return fixKzPhone(phone);
+		case 'ro':	return fixRoPhone(phone);
+		case 'th':	return fixThPhone(phone);
+		case 'lv':	return fixLvPhone(phone);
+		case 'lt':	return fixLtPhone(phone);
+		case 'pl':	return fixPlPhone(phone);
+		case 'ee':	return fixEePhone(phone);
+		case 'hr':	return fixHrPhone(phone);
+		case 'cz':	return fixCzPhone(phone);
+		case 'si':	return fixSiPhone(phone);
+		case 'bg':	return fixBgPhone(phone);
+		case 'kg':	return fixKgPhone(phone);
+		case 'gr':	return fixGrPhone(phone);
+		case 'cy':	return fixCyPhone(phone);
+		case 'es':	return fixEsPhone(phone);
+		case 'pt':	return fixPtPhone(phone);
+		case 'it':	return fixItPhone(phone);
+		case 'hu':	return fixHuPhone(phone);
+		case 'de':	return fixDePhone(phone);
+		case 'fr':	return fixFrPhone(phone);
+		case 'vn':	return fixVnPhone(phone);
+		case 'sk':	return fixSkPhone(phone);
+		case 'sg':	return fixSgPhone(phone);
+		default:	return null;
 	}
 }
 
