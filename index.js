@@ -305,7 +305,7 @@ var fixRuPhone = function (phone) {
 var fixFrPhoneBuilder = fixPhoneBuilder(9, 12, 'fr');
 
 var fixKzPhone = fixPhoneBuilder(10, 12, 'kz');
-var fixRoPhoneLong = fixPhoneBuilder(9, 12, 'ro');
+var fixRoPhoneBuilder = fixPhoneBuilder(9, 12, 'ro');
 var fixLvPhone = fixPhoneBuilder(8, 12, 'lv');
 var fixLtPhone = fixPhoneBuilder(8, 12, 'lt');
 var fixPlPhone = fixPhoneBuilder(9, 12, 'pl');
@@ -318,7 +318,6 @@ var fixEsPhoneBuilder = fixPhoneBuilder(9, 12, 'es');
 var fixPtPhoneBuilder = fixPhoneBuilder(9, 13, 'pt');
 var fixItPhoneBuilder = fixPhoneBuilder(10, 13, 'it');
 var fixSgPhone = fixPhoneBuilder(8, 11, 'sg');
-
 
 var fixItPhone = function (phone) {
 	if (phone.startsWith('0') && phone.length < 11) {
@@ -342,7 +341,7 @@ var fixRoPhone = function (phone) {
 	if (phone.startsWith('400') && phone.length > 11) {
 		phone = phone.replace(/^(400)/, '40')
 	}
-	return fixRoPhoneLong(phone);
+	return fixRoPhoneBuilder(phone);
 }
 var fixPtPhone = function (phone) {
 	if (phone.startsWith('3510') && phone.length < 13 || (phone.startsWith('0') && phone.length < 10)) {
@@ -478,8 +477,4 @@ function getSanitizedPhone (phone) {
 	var phoneWithoutPlus = hasPlus ? phone.slice(1) : phone
 	var sanitizedPhone = phoneWithoutPlus.replace(/[^\d]/g, '')
 	return hasPlus ? '+' + sanitizedPhone : sanitizedPhone
-}
-
-function euvalidation (phone) {
-
 }
