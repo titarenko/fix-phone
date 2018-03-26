@@ -439,7 +439,7 @@ var fixHuPhone = function (phone) {
 			return null
 		}
 	}
-	if(phone.startsWith('36') && phone.length === 11) {
+	if(/^36/.test(phone) && phone.length === 11) {
 		var longPattern = /^.{2}[0]/
 		if(longPattern.test(phone)) {
 			return null
@@ -477,10 +477,10 @@ var fixDePhone = function (phone) {
 		: fixDeShortPhone(phone)
 }
 var fixBgPhone = function (phone) {
-	if(phone.startsWith(0) && phone.length < 10) {
+	if(/^0/.test(phone) && phone.length < 10) {
 		return null
 	}
-	if(phone.startsWith(0) && phone.length < 11) {
+	if(/^0/.test(phone) && phone.length < 11) {
 		phone = phone.replace(/^(0)/, '359')
 	}
 	var localCode = getLocalCode('bg', phone)
