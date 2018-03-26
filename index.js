@@ -115,7 +115,7 @@ var countries = {
 		countryCode: '+371',
 		countryLocalPrefix: '',
 		localCodeLength: 3,
-		phoneLength: 5,
+		phoneLength: 6,
 		hasLocalPrefix: function (phone) {
 			return false
 		}
@@ -304,19 +304,79 @@ var fixRuPhone = function (phone) {
 var fixFrPhoneBuilder = fixPhoneBuilder(9, 12, 'fr');
 var fixKzPhone = fixPhoneBuilder(10, 12, 'kz');
 var fixRoPhoneBuilder = fixPhoneBuilder(9, 12, 'ro');
-var fixLvPhone = fixPhoneBuilder(8, 12, 'lv');
-var fixLtPhone = fixPhoneBuilder(8, 12, 'lt');
-var fixPlPhone = fixPhoneBuilder(9, 12, 'pl');
-var fixCzPhone = fixPhoneBuilder(9, 13, 'cz');
-var fixSiPhone = fixPhoneBuilder(8, 12, 'si');
+var fixLvPhoneBuilder = fixPhoneBuilder(8, 13, 'lv');
+var fixLtPhoneBuilder = fixPhoneBuilder(8, 12, 'lt');
+var fixPlPhoneBuilder = fixPhoneBuilder(9, 12, 'pl');
+var fixCzPhoneBuilder = fixPhoneBuilder(9, 13, 'cz');
+var fixSiPhoneBuilder = fixPhoneBuilder(8, 12, 'si');
 var fixKgPhone = fixPhoneBuilder(9, 13, 'kg');
-var fixGrPhone = fixPhoneBuilder(10, 13, 'gr');
-var fixCyPhone = fixPhoneBuilder(8, 12, 'cy');
+var fixGrPhoneBuilder = fixPhoneBuilder(10, 13, 'gr');
+var fixCyPhoneBuilder = fixPhoneBuilder(8, 12, 'cy');
 var fixEsPhoneBuilder = fixPhoneBuilder(9, 12, 'es');
 var fixPtPhoneBuilder = fixPhoneBuilder(9, 13, 'pt');
 var fixItPhoneBuilder = fixPhoneBuilder(10, 13, 'it');
 var fixSgPhone = fixPhoneBuilder(8, 11, 'sg');
 
+function fixCzPhone (phone) {
+	var reversed = reverseString(phone)
+	if(/^.{8}[0]/.test(reversed)) {
+		return null
+	}
+	return fixCzPhoneBuilder(phone)
+}
+
+function fixSiPhone (phone) {
+	var reversed = reverseString(phone)
+	if(/^.{7}[0]/.test(reversed)) {
+		return null
+	}
+	return fixSiPhoneBuilder(phone)
+}
+function fixSkPhone (phone) {
+	var reversed = reverseString(phone)
+	if(/^.{8}[0]/.test(reversed)) {
+		return null
+	}
+	return fixSkPhoneBuilder(phone)
+}
+
+var fixPlPhone = function (phone) {
+	var reversed = reverseString(phone)
+	if(/^.{8}[0]/.test(reversed)) {
+		return null
+	}
+	return fixPlPhoneBuilder(phone)
+}
+var fixLvPhone = function (phone) {
+	var reversed = reverseString(phone)
+	if(/^.{8}[0]/.test(reversed)) {
+		return null
+	}
+	return fixLvPhoneBuilder(phone)
+}
+
+var fixCyPhone = function (phone) {
+	var reversed = reverseString(phone)
+	if(/^.{7}[0]/.test(reversed)) {
+		return null
+	}
+	return fixCyPhoneBuilder(phone)
+}
+
+var fixLtPhone = function (phone) {
+	var reverced = reverseString(phone)
+	if(/^.{7}[08]/.test(reverced)) {
+		return null
+	}
+	return fixLtPhoneBuilder(phone)
+}
+
+var fixGrPhone = function (phone) {
+	if(phone.length === 10 && /^0/.test(phone) || phone.length === 12 && /^.{2}[0]/.test(phone)) {
+		return null
+	}
+	return fixGrPhoneBuilder(phone)
+}
 var fixItPhone = function (phone) {
 
 	if (/^0/.test(phone) && phone.length < 11) {
@@ -326,12 +386,10 @@ var fixItPhone = function (phone) {
 }
 var fixRoPhone = function (phone) {
 	phone = getSanitizedPhone(phone)
-	var checkPattern = /^(00)|(400)/
-	if (checkPattern.test(phone) && phone.length < 12) {
+	if (/^(00)|(400)/.test(phone) && phone.length < 12) {
 		return null
 	}
-	var checkShort = /^(400)|(0)|(\+400)/
-	if (!checkShort.test(phone) && phone.length < 10) {
+	if (!/^(400)|(0)|(\+400)/.test(phone) && phone.length < 10) {
 		return null
 	}
 	if (/^\+400/.test(phone) && phone.length > 12) {
@@ -369,6 +427,19 @@ var fixEsPhone = function (phone) {
 	return fixEsPhoneBuilder(phone)
 }
 var fixHuPhone = function (phone) {
+	phone = getSanitizedPhone(phone)
+	if(phone.length === 9) {
+		var shortPattern = /^.{2}[0]/
+		if(shortPattern.test(phone)) {
+			return null
+		}
+	}
+	if(/^36/.test(phone) && phone.length === 11) {
+		var longPattern = /^.{2}[0]/
+		if(longPattern.test(phone)) {
+			return null
+		}
+	}
 	phone = phone.replace(/^00/g, '')
 	if (phone.length > 9 && (phone[0] == '0' && phone[1] == '6')) {
 		phone = phone.slice(2)
@@ -401,6 +472,12 @@ var fixDePhone = function (phone) {
 		: fixDeShortPhone(phone)
 }
 var fixBgPhone = function (phone) {
+	if(/^0/.test(phone) && phone.length < 10) {
+		return null
+	}
+	if(/^0/.test(phone) && phone.length < 11) {
+		phone = phone.replace(/^(0)/, '359')
+	}
 	var localCode = getLocalCode('bg', phone)
 	return localCode.length > 1
 		? fixBgPhoneMobile(phone)
@@ -408,11 +485,19 @@ var fixBgPhone = function (phone) {
 }
 var fixEePhone = function (phone) {
 	var localCode = getLocalCode('ee', phone)
+	var reversed = reverseString(phone)
+	if(/^.{7}[0]/.test(reversed)) {
+		return null
+	}
 	return localCode.length > 1
 		? fixEePhoneWithTwoNumberInLocalCode(phone)
 		: fixEePhoneWithOneNumberInLocalCode(phone)
 }
 var fixHrPhone = function (phone) {
+	var reversed = reverseString(phone)
+	if(/^.{8}[0]/.test(reversed)) {
+		return null
+	}
 	return fixHrPhoneWithSixNumberInPhoneNumber(phone)
 		|| fixHrPhoneWithFiveNumberInPhoneNumber(phone)
 }
@@ -432,7 +517,7 @@ var fixVnPhone = function (phone) {
 		: fixVnShortPhone(phone)
 }
 var fixRuPhoneWithCorrectNumber = fixPhoneBuilder(10, 12, 'ru');
-var fixSkPhone = fixPhoneBuilder(9, 13, 'sk');
+var fixSkPhoneBuilder = fixPhoneBuilder(9, 13, 'sk');
 var fixThMobilePhone = fixPhoneBuilder(8, 12, 'th');
 var fixThCityPhone = fixPhoneBuilder(8, 11, 'th');
 var fixEePhoneWithOneNumberInLocalCode = fixPhoneBuilder(7, 11, 'ee');
@@ -476,4 +561,7 @@ function getSanitizedPhone (phone) {
 	var phoneWithoutPlus = hasPlus ? phone.slice(1) : phone
 	var sanitizedPhone = phoneWithoutPlus.replace(/[^\d]/g, '')
 	return hasPlus ? '+' + sanitizedPhone : sanitizedPhone
+}
+function reverseString(str) {
+	return str.split("").reverse().join("");
 }

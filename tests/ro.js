@@ -13,7 +13,9 @@ module.exports = {
 	// without plus sign
 	'40999999999': '+40999999999',
 	'40199999999': '+40199999999',
+	'+40 091 999 9955' : '+40919999955',
 	'40099999999': null,
+	'400999999955' : '+40999999955',
 	// absense of plus and country code is not allowed
 	'999999999': null,
 	// invalid length
