@@ -67,7 +67,6 @@ describe('fix-phone', function () {
 				phone: '123456'
 			});
 		});
-
 		it('should decompose lt phones', function () {
 			decompose('lt', '+37060123456').should.eql({
 				country: '+370',
