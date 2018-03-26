@@ -387,12 +387,10 @@ var fixItPhone = function (phone) {
 }
 var fixRoPhone = function (phone) {
 	phone = getSanitizedPhone(phone)
-	var checkPattern = /^(00)|(400)/
-	if (checkPattern.test(phone) && phone.length < 12) {
+	if (/^(00)|(400)/.test(phone) && phone.length < 12) {
 		return null
 	}
-	var checkShort = /^(400)|(0)|(\+400)/
-	if (!checkShort.test(phone) && phone.length < 10) {
+	if (!/^(400)|(0)|(\+400)/.test(phone) && phone.length < 10) {
 		return null
 	}
 	if (/^\+400/.test(phone) && phone.length > 12) {
@@ -401,6 +399,8 @@ var fixRoPhone = function (phone) {
 	if (/^400/.test(phone) && phone.length > 11) {
 		phone = phone.replace(/^(400)/, '40')
 	}
+	var localCode = getLocalCode('ro', phone)
+	console.log(localCode)
 	return fixRoPhoneBuilder(phone);
 }
 var fixPtPhone = function (phone) {
