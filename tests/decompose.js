@@ -116,14 +116,6 @@ describe('fix-phone', function () {
 			});
 		});
 
-		it('should decompose hr short phones', function () {
-			decompose('hr', '021212345').should.eql({
-				country: '+385',
-				local: '212',
-				phone: '12345'
-			});
-		});
-
 		it('should decompose cz phones', function () {
 			decompose('cz', '+420201234567').should.eql({
 				country: '+420',
