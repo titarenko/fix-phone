@@ -274,6 +274,7 @@ function fixPhone (cc, phone) {
 		case 'vn': return fixVnPhone(phone);
 		case 'sk': return fixSkPhone(phone);
 		case 'sg': return fixSgPhone(phone);
+		case 'my': return fixMyPhone(phone);
 		default: return null;
 	}
 }
@@ -323,6 +324,10 @@ function fixCzPhone (phone) {
 		return null
 	}
 	return fixCzPhoneBuilder(phone)
+}
+
+function fixMyPhone (phone) {
+	return phone
 }
 
 function fixSiPhone (phone) {
