@@ -274,6 +274,7 @@ function fixPhone (cc, phone) {
 		case 'vn': return fixVnPhone(phone);
 		case 'sk': return fixSkPhone(phone);
 		case 'sg': return fixSgPhone(phone);
+    case 'my': return fixMyPhone(phone);
 		default: return null;
 	}
 }
@@ -318,6 +319,7 @@ var fixEsPhone = fixPhoneBuilder(9, 12, 'es');
 var fixPtPhone = fixPhoneBuilder(9, 13, 'pt');
 var fixItPhone = fixPhoneBuilder(10, 13, 'it');
 var fixSgPhone = fixPhoneBuilder(8, 11, 'sg');
+
 var fixFrPhone = function (phone) {
   phone = getSanitizedPhone(phone)
   phone = phone.replace(/^(\+330)|(330)|(\+0)/, '+33')
@@ -334,6 +336,11 @@ var fixHuPhone = function (phone) {
 		? fixHuLongPhone(phone)
 		: fixHuShortPhone(phone)
 }
+
+var fixMyPhone = function (phone) {
+	return phone
+}
+
 var fixDePhone = function (phone) {
 	var localCode = getLocalCode('de', phone)
 	return localCode.length > 2
