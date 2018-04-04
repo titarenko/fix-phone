@@ -340,6 +340,7 @@ function fixSkPhone (phone) {
 	return fixSkPhoneBuilder(phone)
 }
 
+
 var fixPlPhone = function (phone) {
 	var reversed = reverseString(phone)
 	if(/^.{8}[0]/.test(reversed)) {
@@ -407,6 +408,7 @@ var fixPtPhone = function (phone) {
 	return fixPtPhoneBuilder(phone)
 }
 var fixFrPhone = function (phone) {
+<<<<<<< HEAD
 	phone = getSanitizedPhone(phone)
 	if (/^00/.test(phone)) {
 		return null
@@ -425,6 +427,11 @@ var fixEsPhone = function (phone) {
 		return null
 	}
 	return fixEsPhoneBuilder(phone)
+=======
+  phone = getSanitizedPhone(phone)
+  phone = phone.replace(/^(\+330)|(330)|(\+0)/, '+33')
+  return fixFrPhoneBase(phone)
+>>>>>>> fix phone numbers for France
 }
 
 var fixHuPhone = function (phone) {
