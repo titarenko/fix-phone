@@ -227,6 +227,14 @@ var countries = {
 		hasLocalPrefix: function (phone) {
 			return phone.length >= 10 && phone[0] == '0'
 		}
+	},
+	my: {
+		countryCode: '+60',
+		localCodeLength: 2,
+		phoneLength: 6,
+		hasLocalPrefix: function (phone) {
+			return phone.length >= 10 && phone[0] == '0'
+		}
 	}
 }
 
