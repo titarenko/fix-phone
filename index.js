@@ -227,6 +227,14 @@ var countries = {
 		hasLocalPrefix: function (phone) {
 			return phone.length >= 10 && phone[0] == '0'
 		}
+	},
+	my: {
+		countryCode: '+60',
+		localCodeLength: 2,
+		phoneLength: 6,
+		hasLocalPrefix: function (phone) {
+			return phone.length >= 10 && phone[0] == '0'
+		}
 	}
 }
 
@@ -274,6 +282,7 @@ function fixPhone (cc, phone) {
 		case 'vn': return fixVnPhone(phone);
 		case 'sk': return fixSkPhone(phone);
 		case 'sg': return fixSgPhone(phone);
+		case 'my': return fixMyPhone(phone);
 		default: return null;
 	}
 }
@@ -323,6 +332,10 @@ function fixCzPhone (phone) {
 		return null
 	}
 	return fixCzPhoneBuilder(phone)
+}
+
+function fixMyPhone (phone) {
+	return phone
 }
 
 function fixSiPhone (phone) {
