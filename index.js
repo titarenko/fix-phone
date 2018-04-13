@@ -235,6 +235,33 @@ var countries = {
 		hasLocalPrefix: function (phone) {
 			return phone.length >= 10 && phone[0] == '0'
 		}
+	},
+	za: {
+		countryCode: '+27',
+		countryLocalPrefix: '',
+		localCodeLength: 2,
+		phoneLength: 7,
+		hasLocalPrefix: function (phone) {
+			return phone.length >= 10 && phone[0] == '0'
+		}
+	},
+	rw: {
+		countryCode: '+250',
+		countryLocalPrefix: '',
+		localCodeLength: 1,
+		phoneLength: 8,
+		hasLocalPrefix: function (phone) {
+			return phone.length >= 10 && phone[0] == '0'
+		}
+	},
+	cd: {
+		countryCode: '+243',
+		countryLocalPrefix: '',
+		localCodeLength: 1,
+		phoneLength: 8,
+		hasLocalPrefix: function (phone) {
+			return phone.length >= 10 && phone[0] == '0'
+		}
 	}
 }
 
@@ -283,6 +310,9 @@ function fixPhone (cc, phone) {
 		case 'sk': return fixSkPhone(phone);
 		case 'sg': return fixSgPhone(phone);
 		case 'my': return fixMyPhone(phone);
+		case 'za': return fixZaPhone(phone);
+		case 'rw': return fixRwPhone(phone);
+		case 'cd': return fixCdPhone(phone);
 		default: return null;
 	}
 }
@@ -326,12 +356,26 @@ var fixPtPhoneBuilder = fixPhoneBuilder(9, 13, 'pt');
 var fixItPhoneBuilder = fixPhoneBuilder(10, 13, 'it');
 var fixSgPhone = fixPhoneBuilder(8, 11, 'sg');
 
+
+function fixRwPhone (phone) {
+	var builder = fixPhoneBuilder(7, 13, 'rw');
+	return builder(phone);
+}
+function fixCdPhone (phone) {
+	var builder = fixPhoneBuilder(7, 13, 'cd');
+	return builder(phone);
+}
 function fixCzPhone (phone) {
 	var reversed = reverseString(phone)
 	if(/^.{8}[0]/.test(reversed)) {
 		return null
 	}
 	return fixCzPhoneBuilder(phone)
+}
+
+function fixZaPhone (phone) {
+	var builder = fixPhoneBuilder(7, 12, 'za');
+	return builder(phone);
 }
 
 function fixMyPhone (phone) {
