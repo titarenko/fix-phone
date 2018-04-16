@@ -305,5 +305,26 @@ describe('fix-phone', function () {
 				phone: '123456'
 			});
 		});
+		it('should decompose za mobile phones', function () {
+			decompose('za', '+27218290909').should.eql({
+				country: '+27',
+				local: '21',
+				phone: '8290909'
+			});
+		});
+		it('should decompose rw mobile phones', function () {
+			decompose('rw', '+250727343434').should.eql({
+				country: '+250',
+				local: '7',
+				phone: '27343434'
+			});
+		});
+		it('should decompose cd mobile phones', function () {
+			decompose('cd', '+243819922909').should.eql({
+				country: '+243',
+				local: '8',
+				phone: '19922909'
+			});
+		});
 	});
 });
