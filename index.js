@@ -115,7 +115,7 @@ var countries = {
 		countryCode: '+371',
 		countryLocalPrefix: '',
 		localCodeLength: 3,
-		phoneLength: 6,
+		phoneLength: 5,
 		hasLocalPrefix: function (phone) {
 			return false
 		}
@@ -343,8 +343,7 @@ var fixRuPhone = function (phone) {
 var fixFrPhoneBuilder = fixPhoneBuilder(9, 12, 'fr');
 var fixKzPhone = fixPhoneBuilder(10, 12, 'kz');
 var fixRoPhoneBuilder = fixPhoneBuilder(9, 12, 'ro');
-var fixLvPhoneBuilder = fixPhoneBuilder(8, 13, 'lv');
-var fixLvPhoneBuilderShort = fixPhoneBuilder(8, 12, 'lv');
+var fixLvPhoneBuilder = fixPhoneBuilder(8, 12, 'lv');
 var fixLtPhoneBuilder = fixPhoneBuilder(8, 12, 'lt');
 var fixPlPhoneBuilder = fixPhoneBuilder(9, 12, 'pl');
 var fixCzPhoneBuilder = fixPhoneBuilder(9, 13, 'cz');
@@ -417,8 +416,7 @@ var fixLvPhone = function (phone) {
 	if(/^.{8}[0]/.test(reversed)) {
 		return null
 	}
-	var localCode = getLocalCode('lv', phone)
-	return localCode.length === 2 ? fixLvPhoneBuilderShort(phone) : fixLvPhoneBuilder(phone)
+	return fixLvPhoneBuilder(phone)
 }
 
 var fixCyPhone = function (phone) {
