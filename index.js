@@ -264,6 +264,15 @@ var countries = {
 			return false
 		}
 	},
+	ke: {
+		countryCode: '+254',
+		countryLocalPrefix: '',
+		localCodeLength: 3,
+		phoneLength: 6,
+		hasLocalPrefix: function (phone) {
+			return false;
+		}
+	}
 }
 
 module.exports = fixPhone;
@@ -314,6 +323,7 @@ function fixPhone (cc, phone) {
 		case 'rw': return fixRwPhone(phone);
 		case 'cd': return fixCdPhone(phone);
 		case 'my': return fixMyPhone(phone);
+		case 'ke': return fixKePhone(phone);
 		default: return null;
 	}
 }
@@ -357,11 +367,25 @@ var fixPtPhoneBuilder = fixPhoneBuilder(9, 13, 'pt');
 var fixItPhoneBuilder = fixPhoneBuilder(10, 13, 'it');
 var fixSgPhone = fixPhoneBuilder(8, 11, 'sg');
 
-
 function fixRwPhone (phone) {
 	var builder = fixPhoneBuilder(7, 13, 'rw');
 	return builder(phone);
 }
+
+var fixKePhoneBase = fixPhoneBuilder(9, 13, 'ke');
+
+function fixKePhone (phone) {
+	var sane = getSanitizedPhone(phone);
+	if (sane.slice(0, 5) === '+2540') {
+		sane = sane.slice(5);
+	} else if (sane[0] === '0') {
+		sane = sane.slice(1);
+	} else if (sane.slice(0, 4) === '2540') {
+		sane = sane.slice(4)
+	}
+	return fixKePhoneBase(sane);
+}
+
 function fixCdPhone (phone) {
 	var builder = fixPhoneBuilder(7, 13, 'cd');
 	return builder(phone);

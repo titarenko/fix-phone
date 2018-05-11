@@ -338,5 +338,12 @@ describe('fix-phone', function () {
 			});
 		});
 
+		it('should decompose ke phones', function () {
+			decompose('ke', '+254722201368').should.eql({
+				country: '+254',
+				local: '722',
+				phone: '201368'
+			});
+		});
 	});
 });
