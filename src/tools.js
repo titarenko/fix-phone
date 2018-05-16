@@ -1,12 +1,10 @@
 var _ = require('lodash')
 
-module.exports = {
-  getSanitizedPhone,
-  reverseString,
-  fixPhoneBuilder,
-  decomposeBuilder,
-  getLocalCode
-}
+module.exports.getSanitizedPhone = getSanitizedPhone
+module.exports.reverseString = reverseString
+module.exports.fixPhoneBuilder = fixPhoneBuilder
+module.exports.decomposeBuilder = decomposeBuilder
+module.exports.getLocalCode = getLocalCode
 
 function getSanitizedPhone (phone) {
   var hasPlus = phone[0] === '+'
