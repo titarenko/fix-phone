@@ -1,4 +1,4 @@
-var fix = require('../');
+var fix = require('../src');
 var should = require('should');
 var _ = require('lodash');
 var util = require('util');
@@ -9,7 +9,8 @@ var codes = [
 	'ee', 'lt', 'lv', 'kg', 'gr',
 	'cy', 'es', 'pt', 'it', 'de',
 	'hu', 'fr', 'vn', 'sk', 'sg',
-	'za', 'rw', 'cd', 'my', 'ke'
+	'za', 'rw', 'cd', 'my', 'ke',
+	'cg'
 ]
 
 describe('fix-phone', function () {

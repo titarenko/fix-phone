@@ -1,4 +1,4 @@
-var decompose = require('../').decompose;
+var decompose = require('../src').decompose;
 var should = require('should');
 var _ = require('lodash');
 
@@ -344,6 +344,14 @@ describe('fix-phone', function () {
 				local: '722',
 				phone: '201368'
 			});
+		});
+
+		it('should decompose cg phones', function () {
+		  decompose('cg', '+242001234567').should.eql({
+		    country: '+242',
+		    local: '00',
+		    phone: '1234567'
+		  });
 		});
 	});
 });
