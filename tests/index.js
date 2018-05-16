@@ -3,7 +3,7 @@ var should = require('should');
 var _ = require('lodash');
 var util = require('util');
 
-var codes = [
+var countries = [
 	'ua', 'ru', 'kz', 'ro', 'th',
 	'bg', 'si', 'cz', 'pl', 'hr',
 	'ee', 'lt', 'lv', 'kg', 'gr',
@@ -14,10 +14,18 @@ var codes = [
 ]
 
 describe('fix-phone', function () {
-	codes.forEach(function (code) {
+	countries.forEach(function (code) {
+		var country = require('./countries/' + code);
 		it('should fix ' + code + ' phones', function () {
-			_.each(require('./' + code), function (expected, phone) {
-				should(fix(code, phone)).eql(expected, util.format('%s -> %s, but see %s', phone, expected, fix(code, phone)));
+			_.each(country.fix, function (expected, phone) {
+				var actual = fix(code, phone)
+				should(actual).eql(expected, util.format('%s -> %s, but see %s', phone, expected, actual));
+			});
+		});
+		it('should decompose ' + code + ' phones', function () {
+			_.each(country.decompose, function (expected, phone) {
+				var actual = fix.decompose(code, phone)
+				should(actual).eql(expected, util.format('%s -> %j, but see %j', phone, expected, actual));
 			});
 		});
 	});
