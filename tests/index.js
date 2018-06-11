@@ -10,7 +10,7 @@ var countries = [
 	'cy', 'es', 'pt', 'it', 'de',
 	'hu', 'fr', 'vn', 'sk', 'sg',
 	'za', 'rw', 'cd', 'my', 'ke',
-	'cg'
+	'cg', 'mx'
 ]
 
 describe('fix-phone', function () {
