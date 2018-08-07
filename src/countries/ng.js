@@ -3,8 +3,8 @@ var tools = require('../tools')
 var config = {
   countryCode: '+234',
   countryLocalPrefix: '',
-  localCodeLength: 2,
-  phoneLength: 8,
+  localCodeLength: 3,
+  phoneLength: 7,
   hasLocalPrefix: function (phone) {
     return phone.length >= 11 && phone[0] == '0'
   }
