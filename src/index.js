@@ -31,7 +31,8 @@ var countries = [
 	'my',
 	'ke',
 	'mx',
-	'ng'
+	'ng',
+	'at'
 ].reduce(function (dict, code) {
 	dict[code] = require('./countries/' + code)
 	return dict
