@@ -1,6 +1,5 @@
 module.exports = {
   fix: {
-
     // international format
     '+430001234567' : '+430001234567',
 
