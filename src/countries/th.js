@@ -17,7 +17,10 @@ var fixThPhone = function (phone) {
   var localCode = tools.getLocalCode(config, phone)
   if ([2, 3, 4, 5, 7].indexOf(Number(localCode[0])) != -1) {
     return fixThCityPhone(phone)
-  } else {
+  } else if (phone[2] == 0) {
+    phone = phone.substr(0, 2)+phone.substring(3)
+    return fixThPhone(phone)
+  }  else {
     return fixThMobilePhone(phone)
   }
 }
