@@ -10,7 +10,13 @@ var config = {
   }
 }
 
-var fixAtPhone = tools.fixPhoneBuilder(10, 13, config);
+var fixPhone = tools.fixPhoneBuilder(10, 13, config);
+var fixAtPhone = function(phone) {
+  if (phone[0] == '0' && phone[1] == '6') {
+    phone = config.countryCode + phone.substr(1)
+  }
+  return fixPhone(phone)
+}
 
 module.exports = {
   fix: fixAtPhone,
