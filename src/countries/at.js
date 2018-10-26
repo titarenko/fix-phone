@@ -13,8 +13,7 @@ var config = {
 var fixPhone = tools.fixPhoneBuilder(10, 13, config);
 var fixAtPhone = function(phone) {
   if (phone[0] == '0' && phone[1] == '6') {
-    const prefix = '+43'
-    phone = prefix + phone.substr(1)
+    phone = config.countryCode + phone.substr(1)
   }
   return fixPhone(phone)
 }
