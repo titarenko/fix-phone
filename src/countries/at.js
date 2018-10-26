@@ -10,7 +10,14 @@ var config = {
   }
 }
 
-var fixAtPhone = tools.fixPhoneBuilder(10, 13, config);
+var fixPhone = tools.fixPhoneBuilder(10, 13, config);
+var fixAtPhone = function(phone) {
+  if (phone[0] == '6' && phone[1] == '0') {
+    const prefix = '+43'
+    phone = prefix + phone.substr(1)
+  }
+  return fixPhone(phone)
+}
 
 module.exports = {
   fix: fixAtPhone,
