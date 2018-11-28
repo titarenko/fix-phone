@@ -9,7 +9,7 @@ module.exports.getLocalCode = getLocalCode
 function getSanitizedPhone (phone) {
   var hasPlus = phone[0] === '+'
   var phoneWithoutPlus = hasPlus ? phone.slice(1) : phone
-  var sanitizedPhone = phoneWithoutPlus.replace(/[^\d]/g, '')
+  var sanitizedPhone = phoneWithoutPlus.replace(/[^\x30-\x39]/gu, '')
   return hasPlus ? '+' + sanitizedPhone : sanitizedPhone
 }
 
