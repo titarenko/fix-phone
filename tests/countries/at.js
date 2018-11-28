@@ -1,7 +1,7 @@
 module.exports = {
   fix: {
     // international format
-    '+430001234567' : '+430001234567',
+    '+43000​1234567' : '+430001234567',
 
     // absense of plus sign
     '430001234567' : '+430001234567',
@@ -11,17 +11,17 @@ module.exports = {
     '3331234567' : '+433331234567',
 
     // "06xxxxxx..." to "+436xxxxx..."
-    '06001234567' : '+436001234567',
+    '0600123​4567' : '+436001234567',
 
     // absense of country code
-    '+0001234567': null,
+    '+00012​34567': null,
 
     // absense of plus sign, country code and local code
     '1234567': null,
 
     // zero digit instead of plus sign and country code
     '00001234567' : '+430001234567',
-    '03331234567' : '+433331234567',
+    '0333123​4567' : '+433331234567',
 
     // invalid length
     '+43000123456' : null,
