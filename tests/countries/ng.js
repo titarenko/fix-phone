@@ -19,7 +19,7 @@ module.exports = {
 
     // zero digit instead of plus sign and country code
     '00001234567' : '+2340001234567',
-    '09991234567' : '+2349991234567',
+    '0999123​4567' : '+2349991234567',
 
     // invalid length
     '+234000123456' : null,

@@ -7,7 +7,7 @@ module.exports = {
 		// zero instead of plus and country code is not allowed
 		'0999999999': null,
 		// without plus sign
-		'351999999999': '+351999999999',
+		'351999999​999': '+351999999999',
 		'351199999999': '+351199999999',
 		'351099999999': null,
 		// without plus and country code
