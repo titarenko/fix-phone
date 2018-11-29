@@ -1,3 +1,4 @@
+var tools = require('./tools')
 var countries = [
 	'ua',
 	'ru',
@@ -40,6 +41,7 @@ var countries = [
 
 module.exports = fixPhone;
 module.exports.decompose = decomposePhone;
+module.exports.sanitize = tools.getSanitizedPhone;
 
 function fixPhone (cc, phone) {
 	return cc in countries

@@ -17,7 +17,7 @@ module.exports = {
 
     // zero digit insead of plus sign and country code
     '00001234567': '+520001234567',
-    '09991234567': '+529991234567',
+    '0999123​4567': '+529991234567',
 
     // invalid length
     '+52000123456': null,
