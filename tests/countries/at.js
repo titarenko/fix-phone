@@ -29,7 +29,6 @@ module.exports = {
 
     // sanitization
     '+ 4  +30 (/00+ 123 - 4567\юв)': '+430001234567',
-    null: null
   },
   decompose: {
     '+430001234567': {

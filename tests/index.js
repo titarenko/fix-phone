@@ -3,6 +3,7 @@ var should = require('should');
 var _ = require('lodash');
 var util = require('util');
 
+var sanitazeRule = require('./sanitaze')
 var countries = [
 	'ua', 'ru', 'kz', 'ro', 'th',
 	'bg', 'si', 'cz', 'pl', 'hr',
@@ -28,5 +29,8 @@ describe('fix-phone', function () {
 				should(actual).eql(expected, util.format('%s -> %j, but see %j', phone, expected, actual));
 			});
 		});
+	});
+	it('should not crash if phone is null', function () {
+		should.doesNotThrow(() => fix.sanitize(null))
 	});
 });
