@@ -7,6 +7,9 @@ module.exports.decomposeBuilder = decomposeBuilder
 module.exports.getLocalCode = getLocalCode
 
 function getSanitizedPhone (phone) {
+  if (!phone) {
+    return null;
+  }
   var hasPlus = phone[0] === '+'
   var phoneWithoutPlus = hasPlus ? phone.slice(1) : phone
   var sanitizedPhone = phoneWithoutPlus.replace(/[^\d]/g, '')

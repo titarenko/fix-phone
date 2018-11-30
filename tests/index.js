@@ -29,4 +29,9 @@ describe('fix-phone', function () {
 			});
 		});
 	});
+	it('should not crash if phone is null', function () {
+		should.doesNotThrow(function () {
+			fix.sanitize(null)
+		})
+	});
 });
