@@ -30,6 +30,8 @@ describe('fix-phone', function () {
 		});
 	});
 	it('should not crash if phone is null', function () {
-		should.doesNotThrow(() => fix.sanitize(null))
+		should.doesNotThrow(function () {
+			fix.sanitize(null)
+		})
 	});
 });
