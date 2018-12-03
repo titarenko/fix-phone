@@ -1,40 +1,7 @@
-var tools = require('./tools')
-var countries = [
-	'ua',
-	'ru',
-	'kz',
-	'ro',
-	'th',
-	'bg',
-	'si',
-	'cz',
-	'pl',
-	'hr',
-	'ee',
-	'lt',
-	'lv',
-	'kg',
-	'gr',
-	'cy',
-	'es',
-	'pt',
-	'it',
-	'hu',
-	'de',
-	'vn',
-	'fr',
-	'sk',
-	'sg',
-	'za',
-	'rw',
-	'cg',
-	'cd',
-	'my',
-	'ke',
-	'mx',
-	'ng',
-	'at'
-].reduce(function (dict, code) {
+var tools = require('./tools');
+var fs = require('fs');
+
+var countries = fs.readdirSync(__dirname + '/countries').reduce(function (dict, code) {
 	dict[code] = require('./countries/' + code)
 	return dict
 }, { })

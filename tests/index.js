@@ -1,37 +1,34 @@
 var fix = require('../src');
-var should = require('should');
-var _ = require('lodash');
+var tape = require('tape');
 var util = require('util');
+var fs = require('fs');
 
-var countries = [
-	'ua', 'ru', 'kz', 'ro', 'th',
-	'bg', 'si', 'cz', 'pl', 'hr',
-	'ee', 'lt', 'lv', 'kg', 'gr',
-	'cy', 'es', 'pt', 'it', 'de',
-	'hu', 'fr', 'vn', 'sk', 'sg',
-	'za', 'rw', 'cd', 'my', 'ke',
-	'cg', 'mx', 'ng', 'at'
-]
+var countries = fs.readdirSync(__dirname + '/countries')
 
-describe('fix-phone', function () {
-	countries.forEach(function (code) {
-		var country = require('./countries/' + code);
-		it('should fix ' + code + ' phones', function () {
-			_.each(country.fix, function (expected, phone) {
-				var actual = fix(code, phone)
-				should(actual).eql(expected, util.format('%s -> %s, but see %s', phone, expected, actual));
-			});
-		});
-		it('should decompose ' + code + ' phones', function () {
-			_.each(country.decompose, function (expected, phone) {
-				var actual = fix.decompose(code, phone)
-				should(actual).eql(expected, util.format('%s -> %j, but see %j', phone, expected, actual));
-			});
-		});
-	});
-	it('should not crash if phone is null', function () {
-		should.doesNotThrow(function () {
-			fix.sanitize(null)
-		})
-	});
-});
+for (i in countries) {
+	var c = countries[i];
+	var cases = require('./countries/' + c);
+
+	test('should fix ' + c, function (t) {
+		var sut = Object.keys(cases.fix)
+		t.plan(sut.length)
+		for (var j in expected) {
+			t.equal(fix(c, sut[j]), cases[sut[j]])
+		}
+	})
+
+	test('should decompose ' + c, function (t) {
+		var sut = Object.keys(cases.decompose)
+		t.plan(sut.length)
+		for (var j in expected) {
+			t.equal(fix.decompose(c, sut[j]), cases[sut[j]])
+		}
+	})
+}
+
+t('should not crash on sanitize', function (t) {
+	t.plan(1)
+	t.doesNotThrow(function () {
+		fix.sanitize(null)
+	})
+})
