@@ -13,8 +13,8 @@
     "tape": "^4.9.1"
   },
   "scripts": {
-    "test-on-travis": "istanbul cover node -- tests && cat ./coverage/lcov.info | coveralls",
-    "test": "istanbul cover node -- tests",
+    "test-on-travis": "istanbul cover tests/index.js && cat ./coverage/lcov.info | coveralls",
+    "test": "istanbul cover tests/index.js",
     "release": "npm test && npm version patch && npm publish && git push && git push --tags"
   },
   "repository": {

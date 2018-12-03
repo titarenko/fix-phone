@@ -1,5 +1,5 @@
 var fix = require('../src');
-var tape = require('tape');
+var test = require('tape');
 var util = require('util');
 var fs = require('fs');
 
@@ -12,21 +12,21 @@ for (i in countries) {
 	test('should fix ' + c, function (t) {
 		var sut = Object.keys(cases.fix)
 		t.plan(sut.length)
-		for (var j in expected) {
-			t.equal(fix(c, sut[j]), cases[sut[j]])
+		for (var j in sut) {
+			t.equal(fix(c, sut[j]), cases.fix[sut[j]])
 		}
 	})
 
 	test('should decompose ' + c, function (t) {
 		var sut = Object.keys(cases.decompose)
 		t.plan(sut.length)
-		for (var j in expected) {
-			t.equal(fix.decompose(c, sut[j]), cases[sut[j]])
+		for (var j in sut) {
+			t.deepEqual(fix.decompose(c, sut[j]), cases.decompose[sut[j]])
 		}
 	})
 }
 
-t('should not crash on sanitize', function (t) {
+test('should not crash on sanitize', function (t) {
 	t.plan(1)
 	t.doesNotThrow(function () {
 		fix.sanitize(null)
