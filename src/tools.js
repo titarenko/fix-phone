@@ -1,5 +1,3 @@
-var _ = require('lodash')
-
 module.exports.getSanitizedPhone = getSanitizedPhone
 module.exports.reverseString = reverseString
 module.exports.fixPhoneBuilder = fixPhoneBuilder
@@ -46,7 +44,7 @@ function decomposeBuilder (fixPhone, config) {
     if (!fixed) {
       return null;
     }
-    var phoneLength = _.isFunction(config.phoneLength)
+    var phoneLength = typeof config.phoneLength === 'function'
       ? config.phoneLength(fixed)
       : config.phoneLength
     return {
