@@ -3,28 +3,27 @@ var test = require('tape');
 var util = require('util');
 var fs = require('fs');
 
-var countries = fs.readdirSync(__dirname + '/countries')
+var countries = fs.readdirSync(__dirname + '/countries').map(function (c) {
+	return c.slice(0, -3)
+})
 
-for (i in countries) {
-	var c = countries[i];
-	var cases = require('./countries/' + c);
+countries.forEach(function (code) {
+	var cases = require('./countries/' + code)
 
-	test('should fix ' + c, function (t) {
-		var sut = Object.keys(cases.fix)
-		t.plan(sut.length)
-		for (var j in sut) {
-			t.equal(fix(c, sut[j]), cases.fix[sut[j]])
-		}
+	Object.keys(cases.fix).forEach(function (sut) {
+		test('should fix ' + code + ' ' + sut, function (t) {
+			t.plan(1)
+			t.equal(fix(code, sut), cases.fix[sut])
+		})
 	})
 
-	test('should decompose ' + c, function (t) {
-		var sut = Object.keys(cases.decompose)
-		t.plan(sut.length)
-		for (var j in sut) {
-			t.deepEqual(fix.decompose(c, sut[j]), cases.decompose[sut[j]])
-		}
+	Object.keys(cases.decompose).forEach(function (sut) {
+		test('should decompose ' + code + ' ' + sut, function (t) {
+			t.plan(1)
+			t.deepEqual(fix.decompose(code, sut), cases.decompose[sut])
+		})
 	})
-}
+})
 
 test('should not crash on sanitize', function (t) {
 	t.plan(1)

@@ -1,7 +1,9 @@
 var tools = require('./tools');
 var fs = require('fs');
 
-var countries = fs.readdirSync(__dirname + '/countries').reduce(function (dict, code) {
+var countries = fs.readdirSync(__dirname + '/countries').map(function (c) {
+  return c.slice(0, -3)
+}).reduce(function (dict, code) {
 	dict[code] = require('./countries/' + code)
 	return dict
 }, { })
