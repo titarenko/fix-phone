@@ -54,6 +54,7 @@ fix.decompose('ua', '010-121-22-33'); // returns null
 - [MaksimVovk](https://github.com/MaksimVovk)
 - [Erushenko](https://github.com/erushenko)
 - [turizaz](https://github.com/turizaz)
+- [jmakoff](https://github.com/jmakoff)
 
 ## License
 
