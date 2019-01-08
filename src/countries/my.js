@@ -28,7 +28,6 @@ var fixMyPhone = function (phone) {
   phone = tools.getSanitizedPhone(phone)
   var localCode = tools.getLocalCode(shortPhoneConfig, phone)
   if (localCode.indexOf('11') === 0) {
-    localCode = tools.getLocalCode(longPhoneConfig, phone)
     return fixMyLongPhone(phone)
   } else {
     return fixMyShortPhone(phone)
