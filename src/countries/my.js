@@ -1,6 +1,16 @@
 var tools = require('../tools')
 
-var config = {
+var shortPhoneConfig = {
+  countryCode: '+60',
+  countryLocalPrefix: '',
+  localCodeLength: 2,
+  phoneLength: 7,
+  hasLocalPrefix: function (phone) {
+    return false
+  }
+}
+
+var longPhoneConfig = {
   countryCode: '+60',
   countryLocalPrefix: '',
   localCodeLength: 2,
@@ -10,27 +20,33 @@ var config = {
   }
 }
 
-var fixMyShortPhone = tools.fixPhoneBuilder(9, 11, config);
-var fixMyLongPhone = tools.fixPhoneBuilder(9, 12, config);
-var fixMyMobilePhone = tools.fixPhoneBuilder(10, 13, config);
+var fixMyShortPhone = tools.fixPhoneBuilder(9, 12, shortPhoneConfig);
+var fixMyLongPhone = tools.fixPhoneBuilder(10, 13, longPhoneConfig);
 
 var fixMyPhone = function (phone) {
+  phone = phone.replace(/^(0{1,2})/, '')
   phone = tools.getSanitizedPhone(phone)
-
-  var localCode = tools.getLocalCode(config, phone)
-
-  if (localCode.length == 2 && phone.length === 13) {
-    return fixMyMobilePhone(phone)
-  }
-  if (localCode.length < 2 && phone.length === 12) {
+  var localCode = tools.getLocalCode(shortPhoneConfig, phone)
+  if (localCode.indexOf('11') === 0) {
     return fixMyLongPhone(phone)
-  }
-  if (localCode.length < 2 && phone.length === 11) {
+  } else {
     return fixMyShortPhone(phone)
+  }
+} 
+
+var decomposeLongPhone = tools.decomposeBuilder(fixMyPhone, longPhoneConfig)
+var decomposeShortPhone = tools.decomposeBuilder(fixMyPhone, shortPhoneConfig)
+
+function decomposeBuilder (phone) {
+  var decomposedLongPhone = decomposeLongPhone(phone)
+  if (decomposedLongPhone.local.indexOf('11') === 0) {
+    return decomposedLongPhone
+  } else {
+    return decomposeShortPhone(phone)
   }
 }
 
 module.exports = {
   fix: fixMyPhone,
-  decompose: tools.decomposeBuilder(fixMyPhone, config)
+  decompose: decomposeBuilder
 }
