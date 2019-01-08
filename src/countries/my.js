@@ -39,8 +39,9 @@ var decomposeLongPhone = tools.decomposeBuilder(fixMyPhone, longPhoneConfig)
 var decomposeShortPhone = tools.decomposeBuilder(fixMyPhone, shortPhoneConfig)
 
 function decomposeBuilder (phone) {
-  if (decomposeLongPhone(phone).local.indexOf('11') === 0) {
-    return decomposeLongPhone(phone)
+  var decomposedLongPhone = decomposeLongPhone(phone)
+  if (decomposedLongPhone.local.indexOf('11') === 0) {
+    return decomposedLongPhone
   } else {
     return decomposeShortPhone(phone)
   }
