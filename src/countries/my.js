@@ -35,16 +35,18 @@ var fixMyPhone = function (phone) {
   }
 } 
 
-function decompose (phone) {
-  var decompose = tools.decomposeBuilder(fixMyPhone, longPhoneConfig)(phone)
-  if (decompose.local.indexOf('11') === 0){
-    return tools.decomposeBuilder(fixMyPhone, longPhoneConfig)(phone)
+var decomposeLongPhone = tools.decomposeBuilder(fixMyPhone, longPhoneConfig)
+var decomposeShortPhone = tools.decomposeBuilder(fixMyPhone, shortPhoneConfig)
+
+function decomposeBuilder (phone) {
+  if (decomposeLongPhone(phone).local.indexOf('11') === 0) {
+    return decomposeLongPhone(phone)
   } else {
-    return tools.decomposeBuilder(fixMyPhone, shortPhoneConfig)(phone)
+    return decomposeShortPhone(phone)
   }
 }
 
 module.exports = {
   fix: fixMyPhone,
-  decompose: decompose
+  decompose: decomposeBuilder
 }
