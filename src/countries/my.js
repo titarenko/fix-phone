@@ -24,11 +24,10 @@ var fixMyShortPhone = tools.fixPhoneBuilder(9, 12, shortPhoneConfig);
 var fixMyLongPhone = tools.fixPhoneBuilder(10, 13, longPhoneConfig);
 
 var fixMyPhone = function (phone) {
-  phone = phone.replace(/^(00)/, '')
-  phone = phone.replace(/^(0)/, '')
+  phone = phone.replace(/^(0{1,2})/, '')
   phone = tools.getSanitizedPhone(phone)
   var localCode = tools.getLocalCode(shortPhoneConfig, phone)
-  if (/^(11)/.test(localCode)) {
+  if (localCode.indexOf('11') === 0) {
     localCode = tools.getLocalCode(longPhoneConfig, phone)
     return fixMyLongPhone(phone)
   } else {
@@ -38,7 +37,7 @@ var fixMyPhone = function (phone) {
 
 function decompose (phone) {
   var decompose = tools.decomposeBuilder(fixMyPhone, longPhoneConfig)(phone)
-  if (/^(11)/.test(decompose.local)){
+  if (decompose.local.indexOf('11') === 0){
     return tools.decomposeBuilder(fixMyPhone, longPhoneConfig)(phone)
   } else {
     return tools.decomposeBuilder(fixMyPhone, shortPhoneConfig)(phone)
