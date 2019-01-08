@@ -25,28 +25,7 @@ fix.decompose('ua', '010-121-22-33'); // returns null
 
 ## Supported country codes
 
-- ua
-- ru
-- kz
-- ro
-- bg
-- si
-- cz
-- pl
-- hr
-- ee
-- lt
-- lv
-- th
-- ro
-- kg
-- gr
-- cy
-- es
-- pt
-- it
-- fr
-- vn
+Take look at [country modules directory](src/countries).
 
 ## Contributors
 
