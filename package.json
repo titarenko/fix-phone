@@ -15,7 +15,8 @@
   "scripts": {
     "test-on-travis": "istanbul cover tests/index.js && cat ./coverage/lcov.info | coveralls",
     "test": "istanbul cover tests/index.js",
-    "release": "npm test && npm version minor && npm publish && git push && git push --tags"
+    "release-feature": "npm test && npm version minor && npm publish && git push && git push --tags",
+    "release-fix": "npm test && npm version patch && npm publish && git push && git push --tags"
   },
   "repository": {
     "type": "git",
