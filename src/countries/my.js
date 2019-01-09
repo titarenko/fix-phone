@@ -25,9 +25,7 @@ var fixMyLongPhone = tools.fixPhoneBuilder(10, 13, longPhoneConfig);
 
 var fixMyPhone = function (phone) {
   phone = phone.replace(/^(0{1,2})/, '')
-   if (phone.indexOf('+') === 0) {
-    return fixMyPhone(phone.substring(1))
-  }
+  phone = phone.replace(/^\+/, '')
   phone = tools.getSanitizedPhone(phone)
   var localCode = tools.getLocalCode(shortPhoneConfig, phone)
   if (localCode.indexOf('11') === 0) {
