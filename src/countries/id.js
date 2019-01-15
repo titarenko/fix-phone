@@ -10,12 +10,12 @@ var config = {
   },
 }
 
-var fixIdPhoneBuilder = tools.fixPhoneBuilder(10, 13, config);
+var fixPhone = tools.fixPhoneBuilder(10, 13, config);
 
 var fixIdPhone = function (phone) {
   phone = phone.replace(/^(0{1,2})/, '')
   phone = phone.replace(/^\+/, '')
-  return fixIdPhoneBuilder(phone)
+  return fixPhone(phone)
 }
 
 module.exports = {
