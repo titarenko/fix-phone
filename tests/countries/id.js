@@ -19,6 +19,7 @@ module.exports = {
     '123456789': null,
     '+123456789': null,
     '+12345678': null,
+    null: null,
   },
   decompose: {
     '+621231234567' : {
