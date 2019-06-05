@@ -44,6 +44,11 @@ module.exports = {
       country: '+62',
       local: '123',
       phone: '1234567'
+    },
+    '+6212312345678' : {
+      country: '+62',
+      local: '123',
+      phone: '12345678'
     }
   }
 };
