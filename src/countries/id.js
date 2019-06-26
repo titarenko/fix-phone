@@ -37,7 +37,7 @@ var fixIdPhone = function (phone) {
 var decomposeLongPhone = tools.decomposeBuilder(fixIdPhone, longPhoneConfig)
 var decomposeShortPhone = tools.decomposeBuilder(fixIdPhone, shortPhoneConfig)
 
-function decomposeBuilder (phone) {
+function decomposeIdPhone (phone) {
   var decomposedShortPhone = decomposeShortPhone(phone)
   if (decomposedShortPhone && decomposedShortPhone.local.length === 4) {
     return decomposeLongPhone(phone)
@@ -48,5 +48,5 @@ function decomposeBuilder (phone) {
 
 module.exports = {
   fix: fixIdPhone,
-  decompose: decomposeBuilder
+  decompose: decomposeIdPhone
 }
