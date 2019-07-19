@@ -17,7 +17,7 @@ var fixRoPhone = function (phone) {
   if (/^(00)|(400)/.test(phone) && phone.length < 12) {
     return null
   }
-  if (!/^(400)|(0)|(\+400)/.test(phone) && phone.length < 10) {
+  if (!/^(400)|(0)|(\+400)/.test(phone) && phone.length < 9) {
     return null
   }
   if (/^\+400/.test(phone) && phone.length > 12) {
