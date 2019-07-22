@@ -1,30 +1,54 @@
 var tools = require('../tools')
 
-var config = {
+var shortConfig = {
   countryCode: '+385',
   countryLocalPrefix: '',
   localCodeLength: 3,
-  phoneLength: function (phone) {
-    return phone.length - 3 - 4
-  },
+  phoneLength: 5,
   hasLocalPrefix: function (phone) {
-    return phone.length >= 9 && phone[0] == '0'
+    return false
   }
 }
 
-var fixHrPhoneWithFiveNumberInPhoneNumber = tools.fixPhoneBuilder(8, 12, config);
-var fixHrPhoneWithSixNumberInPhoneNumber = tools.fixPhoneBuilder(9, 13, config);
+var longConfig = {
+  countryCode: '+385',
+  countryLocalPrefix: '',
+  localCodeLength: 3,
+  phoneLength: 6,
+  hasLocalPrefix: function (phone) {
+    return false
+  }
+}
+
+var fixShortHrPhone = tools.fixPhoneBuilder(8, 12, shortConfig);
+var fixLongHrPhone = tools.fixPhoneBuilder(9, 13, longConfig);
 
 var fixHrPhone = function (phone) {
-  var reversed = tools.reverseString(phone)
-  if(/^.{8}[0]/.test(reversed)) {
-    return null
+  var localCodeLength = tools.getLocalCode(shortConfig, phone).length
+  if (tools.getLocalCode(shortConfig, phone)[0] === '0') {
+    phone = phone.slice(-(localCodeLength-1  + shortConfig.phoneLength))
   }
-  return fixHrPhoneWithSixNumberInPhoneNumber(phone)
-    || fixHrPhoneWithFiveNumberInPhoneNumber(phone)
+  localCodeLength = tools.getLocalCode(shortConfig, phone).length
+  if (localCodeLength === 4) {
+    phone = phone.slice()
+    return fixLongHrPhone(phone)
+  } else {
+    return fixShortHrPhone(phone)
+  }
+}
+
+const decomposeLongPhone = tools.decomposeBuilder(fixHrPhone, longConfig)
+const decomposeShortPhone = tools.decomposeBuilder(fixHrPhone, shortConfig)
+
+var decomposeHrPhone = function (phone) {
+  if (decomposeShortPhone(phone).local.length ===4) {
+    return decomposeLongPhone(phone)
+  } else {
+    return decomposeShortPhone(phone)
+  }
 }
 
 module.exports = {
   fix: fixHrPhone,
-  decompose: tools.decomposeBuilder(fixHrPhone, config)
+  decompose: decomposeHrPhone
 }
