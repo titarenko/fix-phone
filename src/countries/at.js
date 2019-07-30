@@ -16,7 +16,7 @@ var longConfig = {
   localCodeLength: 3,
   phoneLength: 8,
   hasLocalPrefix: function (phone) {
-    return  phone.length >= 12 && phone[0] == '0'
+    return phone && phone.length >= 12 && phone[0] == '0'
   }
 }
 
