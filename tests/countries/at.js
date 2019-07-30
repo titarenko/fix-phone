@@ -41,7 +41,7 @@ module.exports = {
     '+ 4  +31 (/23+ 123 - 45678\юв)': '+4312312345678',
   },
 
-    decompose: {
+  decompose: {
     '+431231234567': {
       country: '+43',
       local: '123',
