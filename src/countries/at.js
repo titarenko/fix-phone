@@ -40,10 +40,11 @@ const decomposeLongPhone = tools.decomposeBuilder(fixAtPhone, longConfig)
 const decomposeShortPhone = tools.decomposeBuilder(fixAtPhone, shortConfig)
 
 var decomposeAtPhone = function (phone) {
-  if (decomposeShortPhone(phone).local.length ===4) {
+  var short = decomposeShortPhone(phone)
+  if (short.local.length === 4) {
     return decomposeLongPhone(phone)
   } else {
-    return decomposeShortPhone(phone)
+    return short
   }
 }
 
