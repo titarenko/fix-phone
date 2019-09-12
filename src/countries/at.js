@@ -25,11 +25,9 @@ var fixLongAtPhone = tools.fixPhoneBuilder(11, 14, longConfig);
 
 var fixAtPhone = function(phone) {
   phone = tools.getSanitizedPhone(phone)
+  phone = phone.replace(/0*/, '')
   var localCodeLength = tools.getLocalCode(shortConfig, phone).length
-  if (localCodeLength === 4) {
-    if (phone[0] == '0' && phone.length > 10) {
-      phone = phone.substring(1)
-    }
+  if (localCodeLength === 4 && phone.length > 10) {
     return fixLongAtPhone(phone)
   } else {
     return fixShortAtPhone(phone)
