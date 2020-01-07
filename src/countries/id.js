@@ -24,6 +24,9 @@ var fixPhoneShort = tools.fixPhoneBuilder(10, 13, shortPhoneConfig);
 var fixPhoneLong = tools.fixPhoneBuilder(10, 14, longPhoneConfig);
 
 var fixIdPhone = function (phone) {
+  if (phone.length === 14) {
+    phone = phone.replace(/^620/, '+62')
+  }
   phone = phone.replace(/^(0{1,2})/, '')
   phone = phone.replace(/^\+/, '')
   var localCodeLength = tools.getLocalCode(shortPhoneConfig, phone).length
