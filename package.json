@@ -6,7 +6,9 @@
   "directories": {
     "test": "tests"
   },
-  "dependencies": {},
+  "dependencies": {
+    "google-libphonenumber": "^3.2.16"
+  },
   "devDependencies": {
     "coveralls": "3.0.4",
     "istanbul": "^0.4.4",

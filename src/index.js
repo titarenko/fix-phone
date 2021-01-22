@@ -1,12 +1,8 @@
-var tools = require('./tools');
-var fs = require('fs');
+var googleLibphonenumber = require('google-libphonenumber');
+var phoneUtil = googleLibphonenumber.PhoneNumberUtil.getInstance();
+var PNF = googleLibphonenumber.PhoneNumberFormat;
 
-var countries = fs.readdirSync(__dirname + '/countries').map(function (c) {
-	return c.slice(0, -3)
-}).reduce(function (dict, code) {
-	dict[code] = require('./countries/' + code)
-	return dict
-}, { })
+var tools = require('./tools');
 
 module.exports = fixPhone;
 module.exports.decompose = decomposePhone;
@@ -14,19 +10,23 @@ module.exports.sanitize = tools.getSanitizedPhone;
 
 function fixPhone (cc, phone) {
 	try {
-		return cc in countries
-			? countries[cc].fix(phone)
-			: null
+		var number = phoneUtil.parse(phone, cc && cc.toUpperCase());
+		return phoneUtil.format(number, PNF.E164);
 	} catch (e_) {
 		return null
 	}
 }
 
 function decomposePhone (cc, phone) {
+	// https://github.com/giggsey/libphonenumber-for-php/issues/66
 	try {
-		return cc in countries
-			? countries[cc].decompose(phone)
-			: null
+		var number = phoneUtil.parse(phone, cc && cc.toUpperCase());
+		var formatted = phoneUtil.format(number, PNF.INTERNATIONAL).split(' ');
+		return {
+			country: formatted[0],
+			local: formatted[1],
+			phone: formatted.slice(2).join('')
+		};
 	} catch (e_) {
 		return null
 	}
