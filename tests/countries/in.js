@@ -29,6 +29,15 @@ module.exports = {
 
     //other sign (dashes,'(', ')' - for example) between country code
     '91-80-12345678': '+918012345678',
+
+    //country code without "+"
+    '91 80 12345678':'+918012345678',
+
+    // 0 insted country code
+    '0 80 12345678': '+918012345678',
+
+    //without country code
+    '80 12345678': '+918012345678'
   },
   decompose: {
     '+918012345678': {
