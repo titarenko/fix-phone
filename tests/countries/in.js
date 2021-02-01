@@ -24,9 +24,6 @@ module.exports = {
     // sanitization
     '+ 9  +1 (/80+ 123 - 45678\юв)': '+918012345678',
 
-    //spaces between country code
-    '91 80 12345678': '+918012345678',
-
     //other sign (dashes,'(', ')' - for example) between country code
     '91-80-12345678': '+918012345678',
 
