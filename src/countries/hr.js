@@ -24,6 +24,8 @@ var fixShortHrPhone = tools.fixPhoneBuilder(8, 12, shortConfig);
 var fixLongHrPhone = tools.fixPhoneBuilder(9, 13, longConfig);
 
 var fixHrPhone = function (phone) {
+  phone = tools.getSanitizedPhone(phone)
+
   var shortLocalCode = tools.getLocalCode(shortConfig, phone)
   var localCodeLength = shortLocalCode.length
   if (shortLocalCode[0] === '0') {

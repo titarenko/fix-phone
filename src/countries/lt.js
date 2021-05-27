@@ -13,6 +13,8 @@ var config = {
 var fixLtPhoneBuilder = tools.fixPhoneBuilder(8, 12, config);
 
 var fixLtPhone = function (phone) {
+  phone = tools.getSanitizedPhone(phone)
+
   var reverced = tools.reverseString(phone)
   if(/^.{7}[08]/.test(reverced)) {
     return null
