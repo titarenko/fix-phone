@@ -15,6 +15,8 @@ var fixHuLongPhone = tools.fixPhoneBuilder(9, 12, config);
 
 var fixHuPhone = function (phone) {
   phone = tools.getSanitizedPhone(phone)
+  phone = phone.replace(/^\+/, '')
+
   if(phone.length === 9) {
     var shortPattern = /^.{2}[0]/
     if(shortPattern.test(phone)) {
