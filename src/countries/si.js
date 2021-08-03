@@ -17,6 +17,12 @@ function fixSiPhone (phone) {
   if(/^.{7}[0]/.test(reversed)) {
     return null
   }
+
+  var clearPhone = phone.replace('+', '')
+  if (phone.length > 11 && /^3860(\d{8})/gm.test(clearPhone)) {
+    phone = clearPhone.replace(/^(3860)/, '+386')
+  }
+
   return fixSiPhoneBuilder(phone)
 }
 
