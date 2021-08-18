@@ -16,6 +16,11 @@ var fixClPhoneWithTwoNumberInLocalCode = tools.fixPhoneBuilder(9, 12, config);
 var fixClPhone = function (phone) {
   var localCode = tools.getLocalCode(config, phone)
 
+  // Shortened mobile numbers case
+  if (Number(localCode) >= 3 && Number(localCode) < 10) {
+    return fixClPhoneWithTwoNumberInLocalCode('9' + phone)
+  }
+
   return localCode.length > 1
     ? fixClPhoneWithTwoNumberInLocalCode(phone)
     : fixClPhoneWithOneNumberInLocalCode(phone)
